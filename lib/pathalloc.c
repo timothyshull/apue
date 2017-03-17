@@ -17,10 +17,10 @@ static long xsi_version = 0;
 /* If PATH_MAX is indeterminate, no guarantee this is adequate */
 #define    PATH_MAX_GUESS    1024
 
-char*
-path_alloc(size_t* sizep) /* also return allocated size, if nonnull */
+char *
+path_alloc(size_t *sizep) /* also return allocated size, if nonnull */
 {
-    char* ptr;
+    char *ptr;
     size_t size;
 
     if (posix_version == 0) {

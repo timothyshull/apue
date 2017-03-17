@@ -8,7 +8,7 @@ sig_hup(int signo)
 }
 
 static void
-pr_ids(char* name)
+pr_ids(char *name)
 {
     printf("%s: pid = %ld, ppid = %ld, pgrp = %ld, tpgrp = %ld\n",
            name, (long) getpid(), (long) getppid(), (long) getpgrp(),

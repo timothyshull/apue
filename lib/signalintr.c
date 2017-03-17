@@ -1,7 +1,7 @@
 #include "apue.h"
 
-Sigfunc*
-signal_intr(int signo, Sigfunc* func)
+Sigfunc *
+signal_intr(int signo, Sigfunc *func)
 {
     struct sigaction act, oact;
 

@@ -13,15 +13,15 @@
  */
 int log_to_stderr = 1;
 
-void submit_file(int, int, const char*, size_t, int);
+void submit_file(int, int, const char *, size_t, int);
 
 int
-main(int argc, char* argv[])
+main(int argc, char *argv[])
 {
     int fd, sfd, err, text, c;
     struct stat sbuf;
-    char* host;
-    struct addrinfo* ailist, * aip;
+    char *host;
+    struct addrinfo *ailist, *aip;
 
     err = 0;
     text = 0;
@@ -61,7 +61,8 @@ main(int argc, char* argv[])
 
     for (aip = ailist; aip != NULL; aip = aip->ai_next) {
         if ((sfd = connect_retry(AF_INET, SOCK_STREAM, 0,
-                                 aip->ai_addr, aip->ai_addrlen)) < 0) {
+                                 aip->ai_addr, aip->ai_addrlen
+        )) < 0) {
             err = errno;
         } else {
             submit_file(fd, sfd, argv[optind], sbuf.st_size, text);
@@ -75,11 +76,11 @@ main(int argc, char* argv[])
  * Send a file to the printer daemon.
  */
 void
-submit_file(int fd, int sockfd, const char* fname, size_t nbytes,
+submit_file(int fd, int sockfd, const char *fname, size_t nbytes,
             int text)
 {
     int nr, nw, len;
-    struct passwd* pwd;
+    struct passwd *pwd;
     struct printreq req;
     struct printresp res;
     char buf[IOBUFSZ];
@@ -135,7 +136,8 @@ submit_file(int fd, int sockfd, const char* fname, size_t nbytes,
                 err_sys("can't write to print server");
             } else {
                 err_quit("short write (%d/%d) to print server",
-                         nw, nr);
+                         nw, nr
+                );
             }
         }
     }

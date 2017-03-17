@@ -27,7 +27,8 @@ main(void)
         printf("after longjmp:\n");
         printf("globval = %d, autoval = %d, regival = %d,"
                        " volaval = %d, statval = %d\n",
-               globval, autoval, regival, volaval, statval);
+               globval, autoval, regival, volaval, statval
+        );
         exit(0);
     }
 
@@ -49,7 +50,8 @@ f1(int i, int j, int k, int l)
 {
     printf("in f1():\n");
     printf("globval = %d, autoval = %d, regival = %d,"
-                   " volaval = %d, statval = %d\n", globval, i, j, k, l);
+                   " volaval = %d, statval = %d\n", globval, i, j, k, l
+    );
     f2();
 }
 

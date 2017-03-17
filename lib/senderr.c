@@ -6,7 +6,7 @@
  * using the send_fd()/recv_fd() protocol.
  */
 int
-send_err(int fd, int errcode, const char* msg)
+send_err(int fd, int errcode, const char *msg)
 {
     int n;
 

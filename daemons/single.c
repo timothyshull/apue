@@ -5,7 +5,6 @@
 #include <string.h>
 #include <errno.h>
 #include <stdio.h>
-#include <sys/stat.h>
 
 #define LOCKFILE "/var/run/daemon.pid"
 #define LOCKMODE (S_IRUSR|S_IWUSR|S_IRGRP|S_IROTH)

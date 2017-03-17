@@ -24,8 +24,8 @@
  * Describes a print job.
  */
 struct job {
-    struct job* next;        /* next in list */
-    struct job* prev;        /* previous in list */
+    struct job *next;        /* next in list */
+    struct job *prev;        /* previous in list */
     int32_t jobid;        /* job ID */
     struct printreq req;        /* copy of print request */
 };
@@ -34,8 +34,8 @@ struct job {
  * Describes a thread processing a client request.
  */
 struct worker_thread {
-    struct worker_thread* next;    /* next in list */
-    struct worker_thread* prev;    /* previous in list */
+    struct worker_thread *next;    /* next in list */
+    struct worker_thread *prev;    /* previous in list */
     pthread_t tid;        /* thread ID */
     int sockfd;    /* socket */
 };
@@ -48,9 +48,9 @@ int log_to_stderr = 0;
 /*
  * Printer-related stuff.
  */
-struct addrinfo* printer;
+struct addrinfo *printer;
 
-char* printer_name;
+char *printer_name;
 
 pthread_mutex_t configlock = PTHREAD_MUTEX_INITIALIZER;
 
@@ -59,7 +59,7 @@ int reread;
 /*
  * Thread-related stuff.
  */
-struct worker_thread* workers;
+struct worker_thread *workers;
 
 pthread_mutex_t workerlock = PTHREAD_MUTEX_INITIALIZER;
 
@@ -68,7 +68,7 @@ sigset_t mask;
 /*
  * Job-related stuff.
  */
-struct job* jobhead, * jobtail;
+struct job *jobhead, *jobtail;
 
 int jobfd;
 
@@ -89,29 +89,29 @@ void update_jobno(void);
 
 int32_t get_newjobno(void);
 
-void add_job(struct printreq*, int32_t);
+void add_job(struct printreq *, int32_t);
 
-void replace_job(struct job*);
+void replace_job(struct job *);
 
-void remove_job(struct job*);
+void remove_job(struct job *);
 
 void build_qonstart(void);
 
-void* client_thread(void*);
+void *client_thread(void *);
 
-void* printer_thread(void*);
+void *printer_thread(void *);
 
-void* signal_thread(void*);
+void *signal_thread(void *);
 
-ssize_t readmore(int, char**, int, int*);
+ssize_t readmore(int, char **, int, int *);
 
-int printer_status(int, struct job*);
+int printer_status(int, struct job *);
 
 void add_worker(pthread_t, int);
 
 void kill_workers(void);
 
-void client_cleanup(void*);
+void client_cleanup(void *);
 
 /*
  * Main print server thread.  Accepts connect requests from
@@ -120,15 +120,15 @@ void client_cleanup(void*);
  * LOCKING: none.
  */
 int
-main(int argc, char* argv[])
+main(int argc, char *argv[])
 {
     pthread_t tid;
-    struct addrinfo* ailist, * aip;
+    struct addrinfo *ailist, *aip;
     int sockfd, err, i, n, maxfd;
-    char* host;
+    char *host;
     fd_set rendezvous, rset;
     struct sigaction sa;
-    struct passwd* pwdp;
+    struct passwd *pwdp;
 
     if (argc != 1) {
         err_quit("usage: printd");
@@ -167,7 +167,8 @@ main(int argc, char* argv[])
     maxfd = -1;
     for (aip = ailist; aip != NULL; aip = aip->ai_next) {
         if ((sockfd = initserver(SOCK_STREAM, aip->ai_addr,
-                                 aip->ai_addrlen, QLEN)) >= 0) {
+                                 aip->ai_addrlen, QLEN
+        )) >= 0) {
             FD_SET(sockfd, &rendezvous);
             if (sockfd > maxfd) {
                 maxfd = sockfd;
@@ -217,7 +218,7 @@ main(int argc, char* argv[])
                     log_ret("accept failed");
                 }
                 pthread_create(&tid, NULL, client_thread,
-                               (void*) ((long) sockfd));
+                               (void *) ((long) sockfd));
             }
         }
     }
@@ -320,9 +321,9 @@ get_newjobno(void)
  * LOCKING: acquires and releases joblock.
  */
 void
-add_job(struct printreq* reqp, int32_t jobid)
+add_job(struct printreq *reqp, int32_t jobid)
 {
-    struct job* jp;
+    struct job *jp;
 
     if ((jp = malloc(sizeof(struct job))) == NULL) {
         log_sys("malloc failed");
@@ -348,7 +349,7 @@ add_job(struct printreq* reqp, int32_t jobid)
  * LOCKING: acquires and releases joblock.
  */
 void
-replace_job(struct job* jp)
+replace_job(struct job *jp)
 {
     pthread_mutex_lock(&joblock);
     jp->prev = NULL;
@@ -368,7 +369,7 @@ replace_job(struct job* jp)
  * LOCKING: caller must hold joblock.
  */
 void
-remove_job(struct job* target)
+remove_job(struct job *target)
 {
     if (target->next != NULL) {
         target->next->prev = target->prev;
@@ -392,8 +393,8 @@ build_qonstart(void)
 {
     int fd, err, nr;
     int32_t jobid;
-    DIR* dirp;
-    struct dirent* entp;
+    DIR *dirp;
+    struct dirent *entp;
     struct printreq req;
     char dname[FILENMSZ], fname[FILENMSZ];
 
@@ -445,8 +446,8 @@ build_qonstart(void)
  *
  * LOCKING: none.
  */
-void*
-client_thread(void* arg)
+void *
+client_thread(void *arg)
 {
     int n, fd, sockfd, nr, nw, first;
     int32_t jobid;
@@ -457,7 +458,7 @@ client_thread(void* arg)
     char buf[IOBUFSZ];
 
     tid = pthread_self();
-    pthread_cleanup_push(client_cleanup, (void*) ((long) tid));
+    pthread_cleanup_push(client_cleanup, (void *) ((long) tid));
         sockfd = (long) arg;
         add_worker(tid, sockfd);
 
@@ -474,7 +475,7 @@ client_thread(void* arg)
             }
             strncpy(res.msg, strerror(res.retcode), MSGLEN_MAX);
             writen(sockfd, &res, sizeof(struct printresp));
-            pthread_exit((void*) 1);
+            pthread_exit((void *) 1);
         }
         req.size = ntohl(req.size);
         req.flags = ntohl(req.flags);
@@ -492,7 +493,7 @@ client_thread(void* arg)
                     strerror(res.retcode));
             strncpy(res.msg, strerror(res.retcode), MSGLEN_MAX);
             writen(sockfd, &res, sizeof(struct printresp));
-            pthread_exit((void*) 1);
+            pthread_exit((void *) 1);
         }
 
         /*
@@ -522,7 +523,7 @@ client_thread(void* arg)
                 strncpy(res.msg, strerror(res.retcode), MSGLEN_MAX);
                 writen(sockfd, &res, sizeof(struct printresp));
                 unlink(name);
-                pthread_exit((void*) 1);
+                pthread_exit((void *) 1);
             }
         }
         close(fd);
@@ -543,7 +544,7 @@ client_thread(void* arg)
             writen(sockfd, &res, sizeof(struct printresp));
             sprintf(name, "%s/%s/%d", SPOOLDIR, DATADIR, jobid);
             unlink(name);
-            pthread_exit((void*) 1);
+            pthread_exit((void *) 1);
         }
         nw = write(fd, &req, sizeof(struct printreq));
         if (nw != sizeof(struct printreq)) {
@@ -561,7 +562,7 @@ client_thread(void* arg)
             unlink(name);
             sprintf(name, "%s/%s/%d", SPOOLDIR, DATADIR, jobid);
             unlink(name);
-            pthread_exit((void*) 1);
+            pthread_exit((void *) 1);
         }
         close(fd);
 
@@ -579,7 +580,7 @@ client_thread(void* arg)
         log_msg("adding job %d to queue", jobid);
         add_job(&req, jobid);
     pthread_cleanup_pop(1);
-    return ((void*) 0);
+    return ((void *) 0);
 }
 
 /*
@@ -590,11 +591,11 @@ client_thread(void* arg)
 void
 add_worker(pthread_t tid, int sockfd)
 {
-    struct worker_thread* wtp;
+    struct worker_thread *wtp;
 
     if ((wtp = malloc(sizeof(struct worker_thread))) == NULL) {
         log_ret("add_worker: can't malloc");
-        pthread_exit((void*) 1);
+        pthread_exit((void *) 1);
     }
     wtp->tid = tid;
     wtp->sockfd = sockfd;
@@ -617,7 +618,7 @@ add_worker(pthread_t tid, int sockfd)
 void
 kill_workers(void)
 {
-    struct worker_thread* wtp;
+    struct worker_thread *wtp;
 
     pthread_mutex_lock(&workerlock);
     for (wtp = workers; wtp != NULL; wtp = wtp->next) {
@@ -632,9 +633,9 @@ kill_workers(void)
  * LOCKING: acquires and releases workerlock.
  */
 void
-client_cleanup(void* arg)
+client_cleanup(void *arg)
 {
-    struct worker_thread* wtp;
+    struct worker_thread *wtp;
     pthread_t tid;
 
     tid = (pthread_t) ((long) arg);
@@ -664,8 +665,8 @@ client_cleanup(void* arg)
  *
  * LOCKING: acquires and releases configlock.
  */
-void*
-signal_thread(void* arg)
+void *
+signal_thread(void *arg)
 {
     int err, signo;
 
@@ -701,8 +702,8 @@ signal_thread(void* arg)
  *
  * LOCKING: none.
  */
-char*
-add_option(char* cp, int tag, char* optname, char* optval)
+char *
+add_option(char *cp, int tag, char *optname, char *optval)
 {
     int n;
     union {
@@ -730,13 +731,13 @@ add_option(char* cp, int tag, char* optname, char* optval)
  *
  * LOCKING: acquires and releases joblock and configlock.
  */
-void*
-printer_thread(void* arg)
+void *
+printer_thread(void *arg)
 {
-    struct job* jp;
+    struct job *jp;
     int hlen, ilen, sockfd, fd, nr, nw, extra;
-    char* icp, * hcp, * p;
-    struct ipp_hdr* hp;
+    char *icp, *hcp, *p;
+    struct ipp_hdr *hp;
     struct stat sbuf;
     struct iovec iov[2];
     char name[FILENMSZ];
@@ -793,7 +794,8 @@ printer_thread(void* arg)
             continue;
         }
         if ((sockfd = connect_retry(AF_INET, SOCK_STREAM, 0,
-                                    printer->ai_addr, printer->ai_addrlen)) < 0) {
+                                    printer->ai_addr, printer->ai_addrlen
+        )) < 0) {
             log_msg("job %d deferred - can't contact printer: %s",
                     jp->jobid, strerror(errno));
             goto defer;
@@ -803,7 +805,7 @@ printer_thread(void* arg)
          * Set up the IPP header.
          */
         icp = ibuf;
-        hp = (struct ipp_hdr*) icp;
+        hp = (struct ipp_hdr *) icp;
         hp->major_version = 1;
         hp->minor_version = 1;
         hp->operation = htons(OP_PRINT_JOB);
@@ -811,15 +813,19 @@ printer_thread(void* arg)
         icp += offsetof(struct ipp_hdr, attr_group);
         *icp++ = TAG_OPERATION_ATTR;
         icp = add_option(icp, TAG_CHARSET, "attributes-charset",
-                         "utf-8");
+                         "utf-8"
+        );
         icp = add_option(icp, TAG_NATULANG,
-                         "attributes-natural-language", "en-us");
+                         "attributes-natural-language", "en-us"
+        );
         sprintf(str, "http://%s/ipp", printer_name);
         icp = add_option(icp, TAG_URI, "printer-uri", str);
         icp = add_option(icp, TAG_NAMEWOLANG,
-                         "requesting-user-name", jp->req.usernm);
+                         "requesting-user-name", jp->req.usernm
+        );
         icp = add_option(icp, TAG_NAMEWOLANG, "job-name",
-                         jp->req.jobnm);
+                         jp->req.jobnm
+        );
         if (jp->req.flags & PR_TEXT) {
             p = "text/plain";
             extra = 1;
@@ -914,10 +920,10 @@ printer_thread(void* arg)
  * LOCKING: none.
  */
 ssize_t
-readmore(int sockfd, char** bpp, int off, int* bszp)
+readmore(int sockfd, char **bpp, int off, int *bszp)
 {
     ssize_t nr;
-    char* bp = *bpp;
+    char *bp = *bpp;
     int bsz = *bszp;
 
     if (off >= bsz) {
@@ -942,13 +948,13 @@ readmore(int sockfd, char** bpp, int off, int* bszp)
  * LOCKING: none.
  */
 int
-printer_status(int sfd, struct job* jp)
+printer_status(int sfd, struct job *jp)
 {
     int i, success, code, len, found, bufsz, datsz;
     int32_t jobid;
     ssize_t nr;
-    char* bp, * cp, * statcode, * reason, * contentlen;
-    struct ipp_hdr* hp;
+    char *bp, *cp, *statcode, *reason, *contentlen;
+    struct ipp_hdr *hp;
 
     /*
      * Read the HTTP header followed by the IPP response header.
@@ -1072,7 +1078,7 @@ printer_status(int sfd, struct job* jp)
                 }
             }
 
-            hp = (struct ipp_hdr*) cp;
+            hp = (struct ipp_hdr *) cp;
             i = ntohs(hp->status);
             jobid = ntohl(hp->request_id);
 

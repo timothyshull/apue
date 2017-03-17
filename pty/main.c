@@ -1,5 +1,4 @@
 #include "apue.h"
-#include <termios.h>
 
 #ifdef LINUX
 #define OPTSTR "+d:einv"
@@ -8,15 +7,15 @@
 #endif
 
 static void set_noecho(int);    /* at the end of this file */
-void do_driver(char*);    /* in the file driver.c */
+void do_driver(char *);    /* in the file driver.c */
 void loop(int, int);        /* in the file loop.c */
 
 int
-main(int argc, char* argv[])
+main(int argc, char *argv[])
 {
     int fdm, c, ignoreeof, interactive, noecho, verbose;
     pid_t pid;
-    char* driver;
+    char *driver;
     char slave_name[20];
     struct termios orig_termios;
     struct winsize size;
@@ -62,11 +61,12 @@ main(int argc, char* argv[])
         if (tcgetattr(STDIN_FILENO, &orig_termios) < 0) {
             err_sys("tcgetattr error on stdin");
         }
-        if (ioctl(STDIN_FILENO, TIOCGWINSZ, (char*) &size) < 0) {
+        if (ioctl(STDIN_FILENO, TIOCGWINSZ, (char *) &size) < 0) {
             err_sys("TIOCGWINSZ error");
         }
         pid = pty_fork(&fdm, slave_name, sizeof(slave_name),
-                       &orig_termios, &size);
+                       &orig_termios, &size
+        );
     } else {
         pid = pty_fork(&fdm, slave_name, sizeof(slave_name),
                        NULL, NULL);

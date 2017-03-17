@@ -5,7 +5,7 @@
 int
 main()
 {
-    FILE* fp;
+    FILE *fp;
     char buf[BSZ];
 
     memset(buf, 'a', BSZ - 2);

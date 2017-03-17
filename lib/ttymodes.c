@@ -1,5 +1,4 @@
 #include "apue.h"
-#include <termios.h>
 #include <errno.h>
 
 static struct termios save_termios;
@@ -167,7 +166,7 @@ tty_atexit(void)        /* can be set up by atexit(tty_atexit) */
     }
 }
 
-struct termios*
+struct termios *
 tty_termios(void)        /* let caller see original tty state */
 {
     return (&save_termios);

@@ -11,7 +11,7 @@ main(void)
 {
     int i;
     size_t size;
-    char* path;
+    char *path;
 
     if (chdir(STARTDIR) < 0) {
         err_sys("chdir error");

@@ -1,7 +1,7 @@
 #include "apue.h"
 
 /* Read "n" bytes from a descriptor  */
-ssize_t readn(int fd, void* ptr, size_t n)
+ssize_t readn(int fd, void *ptr, size_t n)
 {
     size_t nleft;
     ssize_t nread;

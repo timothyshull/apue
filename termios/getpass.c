@@ -4,14 +4,14 @@
 
 #define    MAX_PASS_LEN    8        /* max #chars for user to enter */
 
-char*
-getpass(const char* prompt)
+char *
+getpass(const char *prompt)
 {
     static char buf[MAX_PASS_LEN + 1];    /* null byte at end */
-    char* ptr;
+    char *ptr;
     sigset_t sig, osig;
     struct termios ts, ots;
-    FILE* fp;
+    FILE *fp;
     int c;
 
     if ((fp = fopen(ctermid(NULL), "r+")) == NULL) {

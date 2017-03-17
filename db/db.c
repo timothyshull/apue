@@ -34,9 +34,9 @@ typedef unsigned long COUNT;    /* unsigned counter */
 typedef struct {
     int idxfd;  /* fd for index file */
     int datfd;  /* fd for data file */
-    char* idxbuf; /* malloc'ed buffer for index record */
-    char* datbuf; /* malloc'ed buffer for data record*/
-    char* name;   /* name db was opened under */
+    char *idxbuf; /* malloc'ed buffer for index record */
+    char *datbuf; /* malloc'ed buffer for data record*/
+    char *name;   /* name db was opened under */
     off_t idxoff; /* offset in index file of index record */
     /* key is at (idxoff + PTR_SZ + IDXLEN_SZ) */
     size_t idxlen; /* length of index record */
@@ -65,37 +65,37 @@ typedef struct {
 /*
  * Internal functions.
  */
-static DB* _db_alloc(int);
+static DB *_db_alloc(int);
 
-static void _db_dodelete(DB*);
+static void _db_dodelete(DB *);
 
-static int _db_find_and_lock(DB*, const char*, int);
+static int _db_find_and_lock(DB *, const char *, int);
 
-static int _db_findfree(DB*, int, int);
+static int _db_findfree(DB *, int, int);
 
-static void _db_free(DB*);
+static void _db_free(DB *);
 
-static DBHASH _db_hash(DB*, const char*);
+static DBHASH _db_hash(DB *, const char *);
 
-static char* _db_readdat(DB*);
+static char *_db_readdat(DB *);
 
-static off_t _db_readidx(DB*, off_t);
+static off_t _db_readidx(DB *, off_t);
 
-static off_t _db_readptr(DB*, off_t);
+static off_t _db_readptr(DB *, off_t);
 
-static void _db_writedat(DB*, const char*, off_t, int);
+static void _db_writedat(DB *, const char *, off_t, int);
 
-static void _db_writeidx(DB*, const char*, off_t, int, off_t);
+static void _db_writeidx(DB *, const char *, off_t, int, off_t);
 
-static void _db_writeptr(DB*, off_t, off_t);
+static void _db_writeptr(DB *, off_t, off_t);
 
 /*
  * Open or create a database.  Same arguments as open(2).
  */
 DBHANDLE
-db_open(const char* pathname, int oflag, ...)
+db_open(const char *pathname, int oflag, ...)
 {
-    DB* db;
+    DB *db;
     int len, mode;
     size_t i;
     char asciiptr[PTR_SZ + 1],
@@ -184,10 +184,10 @@ db_open(const char* pathname, int oflag, ...)
 /*
  * Allocate & initialize a DB structure and its buffers.
  */
-static DB*
+static DB *
 _db_alloc(int namelen)
 {
-    DB* db;
+    DB *db;
 
     /*
      * Use calloc, to initialize the structure to zero.
@@ -224,7 +224,7 @@ _db_alloc(int namelen)
 void
 db_close(DBHANDLE h)
 {
-    _db_free((DB*) h);    /* closes fds, free buffers & struct */
+    _db_free((DB *) h);    /* closes fds, free buffers & struct */
 }
 
 /*
@@ -232,7 +232,7 @@ db_close(DBHANDLE h)
  * may point to.  Also close the file descriptors if still open.
  */
 static void
-_db_free(DB* db)
+_db_free(DB *db)
 {
     if (db->idxfd >= 0) {
         close(db->idxfd);
@@ -255,11 +255,11 @@ _db_free(DB* db)
 /*
  * Fetch a record.  Return a pointer to the null-terminated data.
  */
-char*
-db_fetch(DBHANDLE h, const char* key)
+char *
+db_fetch(DBHANDLE h, const char *key)
 {
-    DB* db = h;
-    char* ptr;
+    DB *db = h;
+    char *ptr;
 
     if (_db_find_and_lock(db, key, 0) < 0) {
         ptr = NULL;                /* error, record not found */
@@ -283,7 +283,7 @@ db_fetch(DBHANDLE h, const char* key)
  * and db_store.  Returns with the hash chain locked.
  */
 static int
-_db_find_and_lock(DB* db, const char* key, int writelock)
+_db_find_and_lock(DB *db, const char *key, int writelock)
 {
     off_t offset, nextoffset;
 
@@ -333,7 +333,7 @@ _db_find_and_lock(DB* db, const char* key, int writelock)
  * Calculate the hash value for a key.
  */
 static DBHASH
-_db_hash(DB* db, const char* key)
+_db_hash(DB *db, const char *key)
 {
     DBHASH hval = 0;
     char c;
@@ -351,7 +351,7 @@ _db_hash(DB* db, const char* key)
  * index record chain ptr.
  */
 static off_t
-_db_readptr(DB* db, off_t offset)
+_db_readptr(DB *db, off_t offset)
 {
     char asciiptr[PTR_SZ + 1];
 
@@ -373,10 +373,10 @@ _db_readptr(DB* db, off_t offset)
  * corresponding data record in the data file.
  */
 static off_t
-_db_readidx(DB* db, off_t offset)
+_db_readidx(DB *db, off_t offset)
 {
     ssize_t i;
-    char* ptr1, * ptr2;
+    char *ptr1, *ptr2;
     char asciiptr[PTR_SZ + 1], asciilen[IDXLEN_SZ + 1];
     struct iovec iov[2];
 
@@ -386,7 +386,8 @@ _db_readidx(DB* db, off_t offset)
      * We still need to call lseek to record the current offset.
      */
     if ((db->idxoff = lseek(db->idxfd, offset,
-                            offset == 0 ? SEEK_CUR : SEEK_SET)) == -1) {
+                            offset == 0 ? SEEK_CUR : SEEK_SET
+    )) == -1) {
         err_dump("_db_readidx: lseek error");
     }
 
@@ -463,8 +464,8 @@ _db_readidx(DB* db, off_t offset)
  * Read the current data record into the data buffer.
  * Return a pointer to the null-terminated data buffer.
  */
-static char*
-_db_readdat(DB* db)
+static char *
+_db_readdat(DB *db)
 {
     if (lseek(db->datfd, db->datoff, SEEK_SET) == -1) {
         err_dump("_db_readdat: lseek error");
@@ -483,9 +484,9 @@ _db_readdat(DB* db)
  * Delete the specified record.
  */
 int
-db_delete(DBHANDLE h, const char* key)
+db_delete(DBHANDLE h, const char *key)
 {
-    DB* db = h;
+    DB *db = h;
     int rc = 0;            /* assume record will be found */
 
     if (_db_find_and_lock(db, key, 1) == 0) {
@@ -507,10 +508,10 @@ db_delete(DBHANDLE h, const char* key)
  * the record has been located by _db_find_and_lock.
  */
 static void
-_db_dodelete(DB* db)
+_db_dodelete(DB *db)
 {
     int i;
-    char* ptr;
+    char *ptr;
     off_t freeptr, saveptr;
 
     /*
@@ -579,7 +580,7 @@ _db_dodelete(DB* db)
  * the record with blanks) and db_store.
  */
 static void
-_db_writedat(DB* db, const char* data, off_t offset, int whence)
+_db_writedat(DB *db, const char *data, off_t offset, int whence)
 {
     struct iovec iov[2];
     static char newline = NEWLINE;
@@ -600,7 +601,7 @@ _db_writedat(DB* db, const char* data, off_t offset, int whence)
     }
     db->datlen = strlen(data) + 1;    /* datlen includes newline */
 
-    iov[0].iov_base = (char*) data;
+    iov[0].iov_base = (char *) data;
     iov[0].iov_len = db->datlen - 1;
     iov[1].iov_base = &newline;
     iov[1].iov_len = 1;
@@ -621,7 +622,7 @@ _db_writedat(DB* db, const char* data, off_t offset, int whence)
  * DB structure, which we need to write the index record.
  */
 static void
-_db_writeidx(DB* db, const char* key,
+_db_writeidx(DB *db, const char *key,
              off_t offset, int whence, off_t ptrval)
 {
     struct iovec iov[2];
@@ -680,7 +681,7 @@ _db_writeidx(DB* db, const char* key,
  * the free list, the hash table, or in an index record.
  */
 static void
-_db_writeptr(DB* db, off_t offset, off_t ptrval)
+_db_writeptr(DB *db, off_t offset, off_t ptrval)
 {
     char asciiptr[PTR_SZ + 1];
 
@@ -702,9 +703,9 @@ _db_writeptr(DB* db, off_t offset, off_t ptrval)
  * exists and DB_INSERT specified, -1 on error.
  */
 int
-db_store(DBHANDLE h, const char* key, const char* data, int flag)
+db_store(DBHANDLE h, const char *key, const char *data, int flag)
 {
-    DB* db = h;
+    DB *db = h;
     int rc, keylen, datlen;
     off_t ptrval;
 
@@ -819,7 +820,7 @@ db_store(DBHANDLE h, const char* key, const char* data, int flag)
  * of the correct sizes.  We're only called by db_store.
  */
 static int
-_db_findfree(DB* db, int keylen, int datlen)
+_db_findfree(DB *db, int keylen, int datlen)
 {
     int rc;
     off_t offset, nextoffset, saveoffset;
@@ -884,7 +885,7 @@ _db_findfree(DB* db, int keylen, int datlen)
 void
 db_rewind(DBHANDLE h)
 {
-    DB* db = h;
+    DB *db = h;
     off_t offset;
 
     offset = (db->nhash + 1) * PTR_SZ;    /* +1 for free list ptr */
@@ -905,12 +906,12 @@ db_rewind(DBHANDLE h)
  * records.  db_rewind must be called before this function is
  * called the first time.
  */
-char*
-db_nextrec(DBHANDLE h, char* key)
+char *
+db_nextrec(DBHANDLE h, char *key)
 {
-    DB* db = h;
+    DB *db = h;
     char c;
-    char* ptr;
+    char *ptr;
 
     /*
      * We read lock the free list so that we don't read

@@ -3,18 +3,18 @@
 #include <limits.h>
 
 /* function type that is called for each filename */
-typedef int Myfunc(const char*, const struct stat*, int);
+typedef int Myfunc(const char *, const struct stat *, int);
 
 static Myfunc myfunc;
 
-static int myftw(char*, Myfunc*);
+static int myftw(char *, Myfunc *);
 
-static int dopath(Myfunc*);
+static int dopath(Myfunc *);
 
 static long nreg, ndir, nblk, nchr, nfifo, nslink, nsock, ntot;
 
 int
-main(int argc, char* argv[])
+main(int argc, char *argv[])
 {
     int ret;
 
@@ -29,19 +29,26 @@ main(int argc, char* argv[])
         ntot = 1;
     }        /* avoid divide by 0; print 0 for all counts */
     printf("regular files  = %7ld, %5.2f %%\n", nreg,
-           nreg * 100.0 / ntot);
+           nreg * 100.0 / ntot
+    );
     printf("directories    = %7ld, %5.2f %%\n", ndir,
-           ndir * 100.0 / ntot);
+           ndir * 100.0 / ntot
+    );
     printf("block special  = %7ld, %5.2f %%\n", nblk,
-           nblk * 100.0 / ntot);
+           nblk * 100.0 / ntot
+    );
     printf("char special   = %7ld, %5.2f %%\n", nchr,
-           nchr * 100.0 / ntot);
+           nchr * 100.0 / ntot
+    );
     printf("FIFOs          = %7ld, %5.2f %%\n", nfifo,
-           nfifo * 100.0 / ntot);
+           nfifo * 100.0 / ntot
+    );
     printf("symbolic links = %7ld, %5.2f %%\n", nslink,
-           nslink * 100.0 / ntot);
+           nslink * 100.0 / ntot
+    );
     printf("sockets        = %7ld, %5.2f %%\n", nsock,
-           nsock * 100.0 / ntot);
+           nsock * 100.0 / ntot
+    );
     exit(ret);
 }
 
@@ -54,11 +61,11 @@ main(int argc, char* argv[])
 #define    FTW_DNR    3        /* directory that can't be read */
 #define    FTW_NS    4        /* file that we can't stat */
 
-static char* fullpath;        /* contains full pathname for every file */
+static char *fullpath;        /* contains full pathname for every file */
 static size_t pathlen;
 
 static int                    /* we return whatever func() returns */
-myftw(char* pathname, Myfunc* func)
+myftw(char *pathname, Myfunc *func)
 {
     fullpath = path_alloc(&pathlen);    /* malloc PATH_MAX+1 bytes */
     /* ({Prog pathalloc}) */
@@ -79,11 +86,11 @@ myftw(char* pathname, Myfunc* func)
  * recursively for each name in the directory.
  */
 static int                    /* we return whatever func() returns */
-dopath(Myfunc* func)
+dopath(Myfunc *func)
 {
     struct stat statbuf;
-    struct dirent* dirp;
-    DIR* dp;
+    struct dirent *dirp;
+    DIR *dp;
     int ret, n;
 
     if (lstat(fullpath, &statbuf) < 0) {    /* stat error */
@@ -134,7 +141,7 @@ dopath(Myfunc* func)
 }
 
 static int
-myfunc(const char* pathname, const struct stat* statptr, int type)
+myfunc(const char *pathname, const struct stat *statptr, int type)
 {
     switch (type) {
         case FTW_F:

@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 3.6)
 project(apue)
 
+include_directories(include)
+
 add_subdirectory(advio)
 add_subdirectory(daemons)
 add_subdirectory(datafiles)

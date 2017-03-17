@@ -1,6 +1,5 @@
 #include "apue.h"
 #include <sys/socket.h>		/* struct msghdr */
-#include <sys/un.h>
 
 #if defined(SCM_CREDS)            /* BSD interface */
 #define CREDSTRUCT		cmsgcred
@@ -20,7 +19,7 @@
 #define CREDSLEN    CMSG_LEN(sizeof(struct CREDSTRUCT))
 #define    CONTROLLEN    (RIGHTSLEN + CREDSLEN)
 
-static struct cmsghdr* cmptr = NULL;        /* malloc'ed first time */
+static struct cmsghdr *cmptr = NULL;        /* malloc'ed first time */
 
 /*
  * Receive a file descriptor from a server process.  Also, any data
@@ -28,12 +27,12 @@ static struct cmsghdr* cmptr = NULL;        /* malloc'ed first time */
  * We have a 2-byte protocol for receiving the fd from send_fd().
  */
 int
-recv_ufd(int fd, uid_t* uidptr,
-         ssize_t (* userfunc)(int, const void*, size_t))
+recv_ufd(int fd, uid_t *uidptr,
+         ssize_t (*userfunc)(int, const void *, size_t))
 {
-    struct cmsghdr* cmp;
-    struct CREDSTRUCT* credp;
-    char* ptr;
+    struct cmsghdr *cmp;
+    struct CREDSTRUCT *credp;
+    char *ptr;
     char buf[MAXLINE];
     struct iovec iov[1];
     struct msghdr msg;
@@ -92,10 +91,10 @@ recv_ufd(int fd, uid_t* uidptr,
                         }
                         switch (cmp->cmsg_type) {
                             case SCM_RIGHTS:
-                                newfd = *(int*) CMSG_DATA(cmp);
+                                newfd = *(int *) CMSG_DATA(cmp);
                                 break;
                             case SCM_CREDTYPE:
-                                credp = (struct CREDSTRUCT*) CMSG_DATA(cmp);
+                                credp = (struct CREDSTRUCT *) CMSG_DATA(cmp);
                                 *uidptr = credp->CR_UID;
                         }
                     }

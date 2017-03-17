@@ -1,9 +1,8 @@
 #include "apue.h"
 #include <errno.h>
 #include <fcntl.h>
-#include <sys/wait.h>
 
-int main(int argc, char* argv[])
+int main(int argc, char *argv[])
 {
     int fd;
     pid_t pid;
@@ -64,7 +63,8 @@ int main(int argc, char* argv[])
             err_ret("read failed (mandatory locking works)");
         } else {
             printf("read OK (no mandatory locking), buf = %2.2s\n",
-                   buf);
+                   buf
+            );
         }
     }
     exit(0);

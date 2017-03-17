@@ -18,12 +18,12 @@ struct mymesg {
     char mtext[MAXMSZ];
 };
 
-void*
-helper(void* arg)
+void *
+helper(void *arg)
 {
     int n;
     struct mymesg m;
-    struct threadinfo* tip = arg;
+    struct threadinfo *tip = arg;
 
     for (;;) {
         memset(&m, 0, sizeof(m));

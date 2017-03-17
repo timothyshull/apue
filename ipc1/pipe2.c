@@ -1,17 +1,16 @@
 #include "apue.h"
-#include <sys/wait.h>
 
 #define    DEF_PAGER    "/bin/more"        /* default pager program */
 
 int
-main(int argc, char* argv[])
+main(int argc, char *argv[])
 {
     int n;
     int fd[2];
     pid_t pid;
-    char* pager, * argv0;
+    char *pager, *argv0;
     char line[MAXLINE];
-    FILE* fp;
+    FILE *fp;
 
     if (argc != 2) {
         err_quit("usage: a.out <pathname>");
@@ -65,7 +64,7 @@ main(int argc, char* argv[])
             argv0 = pager;
         }    /* no slash in pager */
 
-        if (execl(pager, argv0, (char*) 0) < 0) {
+        if (execl(pager, argv0, (char *) 0) < 0) {
             err_sys("execl error for %s", pager);
         }
     }

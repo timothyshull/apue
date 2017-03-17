@@ -4,7 +4,7 @@
 /* size of control buffer to send/recv one file descriptor */
 #define    CONTROLLEN    CMSG_LEN(sizeof(int))
 
-static struct cmsghdr* cmptr = NULL;        /* malloc'ed first time */
+static struct cmsghdr *cmptr = NULL;        /* malloc'ed first time */
 
 /*
  * Receive a file descriptor from a server process.  Also, any data
@@ -12,10 +12,10 @@ static struct cmsghdr* cmptr = NULL;        /* malloc'ed first time */
  * We have a 2-byte protocol for receiving the fd from send_fd().
  */
 int
-recv_fd(int fd, ssize_t (* userfunc)(int, const void*, size_t))
+recv_fd(int fd, ssize_t (*userfunc)(int, const void *, size_t))
 {
     int newfd, nr, status;
-    char* ptr;
+    char *ptr;
     char buf[MAXLINE];
     struct iovec iov[1];
     struct msghdr msg;
@@ -56,7 +56,7 @@ recv_fd(int fd, ssize_t (* userfunc)(int, const void*, size_t))
                     if (msg.msg_controllen != CONTROLLEN) {
                         err_dump("status = 0 but no fd");
                     }
-                    newfd = *(int*) CMSG_DATA(cmptr);
+                    newfd = *(int *) CMSG_DATA(cmptr);
                 } else {
                     newfd = -status;
                 }

@@ -2,25 +2,24 @@
 #include	<dirent.h>
 #include	<limits.h>
 #include	<string.h>
-#include	<termios.h>
 #include	<unistd.h>
 #include	<stdlib.h>
 
 struct devdir {
-    struct devdir* d_next;
-    char* d_name;
+    struct devdir *d_next;
+    char *d_name;
 };
 
-static struct devdir* head;
+static struct devdir *head;
 
-static struct devdir* tail;
+static struct devdir *tail;
 
 static char pathname[_POSIX_PATH_MAX + 1];
 
 static void
-add(char* dirname)
+add(char *dirname)
 {
-    struct devdir* ddp;
+    struct devdir *ddp;
     int len;
 
     len = strlen(dirname);
@@ -57,7 +56,7 @@ add(char* dirname)
 static void
 cleanup(void)
 {
-    struct devdir* ddp, * nddp;
+    struct devdir *ddp, *nddp;
 
     ddp = head;
     while (ddp != NULL) {
@@ -70,13 +69,13 @@ cleanup(void)
     tail = NULL;
 }
 
-static char*
-searchdir(char* dirname, struct stat* fdstatp)
+static char *
+searchdir(char *dirname, struct stat *fdstatp)
 {
     struct stat devstat;
-    DIR* dp;
+    DIR *dp;
     int devlen;
-    struct dirent* dirp;
+    struct dirent *dirp;
 
     strcpy(pathname, dirname);
     if ((dp = opendir(dirname)) == NULL) {
@@ -114,12 +113,12 @@ searchdir(char* dirname, struct stat* fdstatp)
     return (NULL);
 }
 
-char*
+char *
 ttyname(int fd)
 {
     struct stat fdstat;
-    struct devdir* ddp;
-    char* rval;
+    struct devdir *ddp;
+    char *rval;
 
     if (isatty(fd) == 0) {
         return (NULL);

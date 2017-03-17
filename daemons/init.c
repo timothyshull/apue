@@ -2,7 +2,7 @@
 #include <syslog.h>
 #include <fcntl.h>
 
-void daemonize(const char* cmd)
+void daemonize(const char *cmd)
 {
     int i, fd0, fd1, fd2;
     pid_t pid;
@@ -77,7 +77,8 @@ void daemonize(const char* cmd)
     openlog(cmd, LOG_CONS, LOG_DAEMON);
     if (fd0 != 0 || fd1 != 1 || fd2 != 2) {
         syslog(LOG_ERR, "unexpected file descriptors %d %d %d",
-               fd0, fd1, fd2);
+               fd0, fd1, fd2
+        );
         exit(1);
     }
 }

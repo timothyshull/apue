@@ -40,10 +40,10 @@ compt2ulong(comp_t comptime)    /* convert comp_t to unsigned long */
 #endif
 
 int
-main(int argc, char* argv[])
+main(int argc, char *argv[])
 {
     struct acct acdata;
-    FILE* fp;
+    FILE *fp;
 
     if (argc != 2) {
         err_quit("usage: pracct filename");
@@ -65,7 +65,8 @@ main(int argc, char* argv[])
                acdata.ac_flag & ACORE ? 'D' : ' ',
                acdata.ac_flag & AXSIG ? 'X' : ' ',
                acdata.ac_flag & AFORK ? 'F' : ' ',
-               acdata.ac_flag & ASU ? 'S' : ' ');
+               acdata.ac_flag & ASU ? 'S' : ' '
+        );
     }
     if (ferror(fp)) {
         err_sys("read error");

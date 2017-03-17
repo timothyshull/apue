@@ -11,7 +11,7 @@ void reread(void)
     /* ... */
 }
 
-void* thr_fn(void* arg)
+void *thr_fn(void *arg)
 {
     int err, signo;
 
@@ -38,11 +38,11 @@ void* thr_fn(void* arg)
     }
 }
 
-int main(int argc, char* argv[])
+int main(int argc, char *argv[])
 {
     int err;
     pthread_t tid;
-    char* cmd;
+    char *cmd;
     struct sigaction sa;
 
     if ((cmd = strrchr(argv[0], '/')) == NULL) {

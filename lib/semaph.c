@@ -98,8 +98,8 @@ sem_create(key_t key, int initval)
     register int id, semval;
     union semun {
         int val;
-        struct semid_ds* buf;
-        unsigned short* array;
+        struct semid_ds *buf;
+        unsigned short *array;
     } semctl_arg;
 
     if (key == IPC_PRIVATE) {
@@ -130,8 +130,9 @@ sem_create(key_t key, int initval)
      */
 
     if (semop(id, &op_lock[0], 2) < 0) {
-        if (errno == EINVAL)
+        if (errno == EINVAL) {
             goto again;
+        }
         err_sys("can't lock");
     }
 
@@ -140,8 +141,9 @@ sem_create(key_t key, int initval)
      * then no one has initialized the semaphore yet.
      */
 
-    if ((semval = semctl(id, 1, GETVAL, 0)) < 0)
+    if ((semval = semctl(id, 1, GETVAL, 0)) < 0) {
         err_sys("can't GETVAL");
+    }
 
     if (semval == 0) {
         /*
@@ -152,20 +154,23 @@ sem_create(key_t key, int initval)
          */
 
         semctl_arg.val = initval;
-        if (semctl(id, 0, SETVAL, semctl_arg) < 0)
+        if (semctl(id, 0, SETVAL, semctl_arg) < 0) {
             err_sys("can SETVAL[0]");
+        }
 
         semctl_arg.val = BIGCOUNT;
-        if (semctl(id, 1, SETVAL, semctl_arg) < 0)
+        if (semctl(id, 1, SETVAL, semctl_arg) < 0) {
             err_sys("can SETVAL[1]");
+        }
     }
 
     /*
      * Decrement the process counter and then release the lock.
      */
 
-    if (semop(id, &op_endcreate[0], 2) < 0)
+    if (semop(id, &op_endcreate[0], 2) < 0) {
         err_sys("can't end create");
+    }
 
     return (id);
 }
@@ -200,8 +205,9 @@ sem_open(key_t key)
      * to do this.
      */
 
-    if (semop(id, &op_open[0], 1) < 0)
+    if (semop(id, &op_open[0], 1) < 0) {
         err_sys("can't open");
+    }
 
     return (id);
 }

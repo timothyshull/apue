@@ -2,7 +2,7 @@
 #include <pthread.h>
 
 int
-makethread(void* (* fn)(void*), void* arg)
+makethread(void *(*fn)(void *), void *arg)
 {
     int err;
     pthread_t tid;

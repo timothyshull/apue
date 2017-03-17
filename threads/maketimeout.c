@@ -1,8 +1,7 @@
 #include <sys/time.h>
-#include <stdlib.h>
 
 void
-maketimeout(struct timespec* tsp, long minutes)
+maketimeout(struct timespec *tsp, long minutes)
 {
     struct timeval now;
 

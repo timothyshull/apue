@@ -1,25 +1,23 @@
 #include "apue.h"
 #include <errno.h>
-#include <fcntl.h>
-#include <sys/wait.h>
 
 /*
  * Pointer to array allocated at run-time.
  */
-static pid_t* childpid = NULL;
+static pid_t *childpid = NULL;
 
 /*
  * From our open_max(), {Prog openmax}.
  */
 static int maxfd;
 
-FILE*
-popen(const char* cmdstring, const char* type)
+FILE *
+popen(const char *cmdstring, const char *type)
 {
     int i;
     int pfd[2];
     pid_t pid;
-    FILE* fp;
+    FILE *fp;
 
     /* only allow "r" or "w" */
     if ((type[0] != 'r' && type[0] != 'w') || type[1] != 0) {
@@ -69,7 +67,7 @@ popen(const char* cmdstring, const char* type)
             }
         }
 
-        execl("/bin/sh", "sh", "-c", cmdstring, (char*) 0);
+        execl("/bin/sh", "sh", "-c", cmdstring, (char *) 0);
         _exit(127);
     }
 
@@ -91,7 +89,7 @@ popen(const char* cmdstring, const char* type)
 }
 
 int
-pclose(FILE* fp)
+pclose(FILE *fp)
 {
     int fd, stat;
     pid_t pid;

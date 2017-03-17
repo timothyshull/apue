@@ -7,7 +7,7 @@
  * Our internal structure tracking a memory stream
  */
 struct memstream {
-    char* buf;    /* in-memory buffer */
+    char *buf;    /* in-memory buffer */
     size_t rsize;    /* real size of buffer */
     size_t vsize;    /* virtual size of buffer */
     size_t curpos;    /* current position in buffer */
@@ -25,24 +25,24 @@ struct memstream {
 #define MIN(a, b) ((a) < (b) ? (a) : (b))
 #endif
 
-static int mstream_read(void*, char*, int);
+static int mstream_read(void *, char *, int);
 
-static int mstream_write(void*, const char*, int);
+static int mstream_write(void *, const char *, int);
 
-static fpos_t mstream_seek(void*, fpos_t, int);
+static fpos_t mstream_seek(void *, fpos_t, int);
 
-static int mstream_close(void*);
+static int mstream_close(void *);
 
-static int type_to_flags(const char* __restrict type);
+static int type_to_flags(const char *__restrict type);
 
-static off_t find_end(char* buf, size_t len);
+static off_t find_end(char *buf, size_t len);
 
-FILE*
-fmemopen(void* __restrict buf, size_t size,
-         const char* __restrict type)
+FILE *
+fmemopen(void *__restrict buf, size_t size,
+         const char *__restrict type)
 {
-    struct memstream* ms;
-    FILE* fp;
+    struct memstream *ms;
+    FILE *fp;
 
     if (size == 0) {
         errno = EINVAL;
@@ -89,7 +89,8 @@ fmemopen(void* __restrict buf, size_t size,
         ms->vsize = size;
     }
     fp = funopen(ms, mstream_read, mstream_write,
-                 mstream_seek, mstream_close);
+                 mstream_seek, mstream_close
+    );
     if (fp == NULL) {
         if (ms->flags & MS_MYBUF) {
             free(ms->buf);
@@ -100,9 +101,9 @@ fmemopen(void* __restrict buf, size_t size,
 }
 
 static int
-type_to_flags(const char* __restrict type)
+type_to_flags(const char *__restrict type)
 {
-    const char* cp;
+    const char *cp;
     int flags = 0;
 
     for (cp = type; *cp != 0; cp++) {
@@ -122,8 +123,9 @@ type_to_flags(const char* __restrict type)
                 break;
 
             case 'a':
-                if (flags != 0)
-                    return (0);    /* error */
+                if (flags != 0) {
+                    return (0);
+                }    /* error */
                 flags |= MS_APPEND;
                 break;
 
@@ -146,7 +148,7 @@ type_to_flags(const char* __restrict type)
 }
 
 static off_t
-find_end(char* buf, size_t len)
+find_end(char *buf, size_t len)
 {
     off_t off = 0;
 
@@ -160,10 +162,10 @@ find_end(char* buf, size_t len)
 }
 
 static int
-mstream_read(void* cookie, char* buf, int len)
+mstream_read(void *cookie, char *buf, int len)
 {
     int nr;
-    struct memstream* ms = cookie;
+    struct memstream *ms = cookie;
 
     if (!(ms->flags & MS_READ)) {
         errno = EBADF;
@@ -181,10 +183,10 @@ mstream_read(void* cookie, char* buf, int len)
 }
 
 static int
-mstream_write(void* cookie, const char* buf, int len)
+mstream_write(void *cookie, const char *buf, int len)
 {
     int nw, off;
-    struct memstream* ms = cookie;
+    struct memstream *ms = cookie;
 
     if (!(ms->flags & (MS_APPEND | MS_WRITE))) {
         errno = EBADF;
@@ -217,10 +219,10 @@ mstream_write(void* cookie, const char* buf, int len)
 }
 
 static fpos_t
-mstream_seek(void* cookie, fpos_t pos, int whence)
+mstream_seek(void *cookie, fpos_t pos, int whence)
 {
     int off;
-    struct memstream* ms = cookie;
+    struct memstream *ms = cookie;
 
     switch (whence) {
         case SEEK_SET:
@@ -242,9 +244,9 @@ mstream_seek(void* cookie, fpos_t pos, int whence)
 }
 
 static int
-mstream_close(void* cookie)
+mstream_close(void *cookie)
 {
-    struct memstream* ms = cookie;
+    struct memstream *ms = cookie;
 
     if (ms->flags & MS_MYBUF) {
         free(ms->buf);

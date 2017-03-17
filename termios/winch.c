@@ -1,5 +1,4 @@
 #include "apue.h"
-#include <termios.h>
 
 #ifndef    TIOCGWINSZ
 #include <sys/ioctl.h>
@@ -10,7 +9,7 @@ pr_winsize(int fd)
 {
     struct winsize size;
 
-    if (ioctl(fd, TIOCGWINSZ, (char*) &size) < 0) {
+    if (ioctl(fd, TIOCGWINSZ, (char *) &size) < 0) {
         err_sys("TIOCGWINSZ error");
     }
     printf("%d rows, %d columns\n", size.ws_row, size.ws_col);

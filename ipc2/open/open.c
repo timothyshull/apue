@@ -6,7 +6,7 @@
  * connection server and reading a file descriptor back.
  */
 int
-csopen(char* name, int oflag)
+csopen(char *name, int oflag)
 {
     int len;
     char buf[12];

@@ -1,7 +1,6 @@
 #include "apue.h"
 #include <netdb.h>
 #include <errno.h>
-#include <sys/socket.h>
 
 #define BUFLEN        128
 #define TIMEOUT        20
@@ -12,7 +11,7 @@ sigalrm(int signo)
 }
 
 void
-print_uptime(int sockfd, struct addrinfo* aip)
+print_uptime(int sockfd, struct addrinfo *aip)
 {
     int n;
     char buf[BUFLEN];
@@ -33,9 +32,9 @@ print_uptime(int sockfd, struct addrinfo* aip)
 }
 
 int
-main(int argc, char* argv[])
+main(int argc, char *argv[])
 {
-    struct addrinfo* ailist, * aip;
+    struct addrinfo *ailist, *aip;
     struct addrinfo hint;
     int sockfd, err;
     struct sigaction sa;

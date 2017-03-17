@@ -1,6 +1,5 @@
 #include <unistd.h>
 #include <time.h>
-#include <sys/select.h>
 
 unsigned
 sleep(unsigned seconds)

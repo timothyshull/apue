@@ -2,7 +2,7 @@
 #include	<fcntl.h>
 
 void
-handle_request(char* buf, int nread, int clifd, uid_t uid)
+handle_request(char *buf, int nread, int clifd, uid_t uid)
 {
     int newfd;
 

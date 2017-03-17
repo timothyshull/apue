@@ -5,7 +5,7 @@
 
 int
 connect_retry(int domain, int type, int protocol,
-              const struct sockaddr* addr, socklen_t alen)
+              const struct sockaddr *addr, socklen_t alen)
 {
     int numsec, fd;
 

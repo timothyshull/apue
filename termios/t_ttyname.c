@@ -3,7 +3,7 @@
 int
 main(void)
 {
-    char* name;
+    char *name;
     if (isatty(0)) {
         name = ttyname(0);
         if (name == NULL) {

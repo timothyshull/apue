@@ -2,7 +2,7 @@
 #include <errno.h>
 
 int
-main(int argc, char* argv[])
+main(int argc, char *argv[])
 {
     fprintf(stderr, "EACCES: %s\n", strerror(EACCES));
     errno = ENOENT;

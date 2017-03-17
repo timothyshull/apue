@@ -5,12 +5,12 @@ int debug, oflag, client_size, log_to_stderr;
 
 char errmsg[MAXLINE];
 
-char* pathname;
+char *pathname;
 
-Client* client = NULL;
+Client *client = NULL;
 
 int
-main(int argc, char* argv[])
+main(int argc, char *argv[])
 {
     int c;
 

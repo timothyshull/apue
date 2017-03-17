@@ -22,7 +22,7 @@ unsigned char translate(unsigned char c)
     return (c);
 }
 
-int main(int argc, char* argv[])
+int main(int argc, char *argv[])
 {
     int ifd, ofd, i;
     ssize_t n, nw;

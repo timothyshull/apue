@@ -89,7 +89,8 @@ main(void)
                strerror(errno));
     } else {
         printf("parent: obtained additional read lock while"
-                       " write lock is pending\n");
+                       " write lock is pending\n"
+        );
     }
     printf("killing child 1...\n");
     kill(pid1, SIGINT);

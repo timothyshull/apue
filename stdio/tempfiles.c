@@ -4,7 +4,7 @@ int
 main(void)
 {
     char name[L_tmpnam], line[MAXLINE];
-    FILE* fp;
+    FILE *fp;
 
     printf("%s\n", tmpnam(NULL));        /* first temp name */
 

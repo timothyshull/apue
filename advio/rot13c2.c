@@ -39,12 +39,12 @@ unsigned char translate(unsigned char c)
     return (c);
 }
 
-int main(int argc, char* argv[])
+int main(int argc, char *argv[])
 {
     int ifd, ofd, i, j, err, numop;
     ssize_t n;
     struct stat sbuf;
-    const struct aiocb* aiolist[NBUF];
+    const struct aiocb *aiolist[NBUF];
     off_t off = 0;
 
     if (argc != 3) {

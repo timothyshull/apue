@@ -1,13 +1,12 @@
 #include "apue.h"
-#include <sys/wait.h>
 
 #define    PAGER    "${PAGER:-more}" /* environment variable, or default */
 
 int
-main(int argc, char* argv[])
+main(int argc, char *argv[])
 {
     char line[MAXLINE];
-    FILE* fpin, * fpout;
+    FILE *fpin, *fpout;
 
     if (argc != 2) {
         err_quit("usage: a.out <pathname>");

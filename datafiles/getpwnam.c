@@ -2,10 +2,10 @@
 #include <stddef.h>
 #include <string.h>
 
-struct passwd*
-getpwnam(const char* name)
+struct passwd *
+getpwnam(const char *name)
 {
-    struct passwd* ptr;
+    struct passwd *ptr;
 
     setpwent();
     while ((ptr = getpwent()) != NULL) {

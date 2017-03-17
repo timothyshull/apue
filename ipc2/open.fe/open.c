@@ -6,7 +6,7 @@
  * connection server and reading a file descriptor back.
  */
 int
-csopen(char* name, int oflag)
+csopen(char *name, int oflag)
 {
     pid_t pid;
     int len;
@@ -32,7 +32,7 @@ csopen(char* name, int oflag)
                 dup2(fd[1], STDOUT_FILENO) != STDOUT_FILENO) {
                 err_sys("dup2 error to stdout");
             }
-            if (execl("./opend", "opend", (char*) 0) < 0) {
+            if (execl("./opend", "opend", (char *) 0) < 0) {
                 err_sys("execl error");
             }
         }

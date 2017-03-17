@@ -2,9 +2,6 @@
 #include <netdb.h>
 #include <errno.h>
 #include <syslog.h>
-#include <fcntl.h>
-#include <sys/socket.h>
-#include <sys/wait.h>
 
 #define QLEN 10
 
@@ -12,7 +9,7 @@
 #define HOST_NAME_MAX 256
 #endif
 
-extern int initserver(int, const struct sockaddr*, socklen_t, int);
+extern int initserver(int, const struct sockaddr *, socklen_t, int);
 
 void
 serve(int sockfd)
@@ -45,7 +42,7 @@ serve(int sockfd)
                 exit(1);
             }
             close(clfd);
-            execl("/usr/bin/uptime", "uptime", (char*) 0);
+            execl("/usr/bin/uptime", "uptime", (char *) 0);
             syslog(LOG_ERR, "ruptimed: unexpected return from exec: %s",
                    strerror(errno));
         } else {        /* parent */
@@ -56,12 +53,12 @@ serve(int sockfd)
 }
 
 int
-main(int argc, char* argv[])
+main(int argc, char *argv[])
 {
-    struct addrinfo* ailist, * aip;
+    struct addrinfo *ailist, *aip;
     struct addrinfo hint;
     int sockfd, err, n;
-    char* host;
+    char *host;
 
     if (argc != 1) {
         err_quit("usage: ruptimed");
@@ -89,7 +86,8 @@ main(int argc, char* argv[])
     }
     for (aip = ailist; aip != NULL; aip = aip->ai_next) {
         if ((sockfd = initserver(SOCK_STREAM, aip->ai_addr,
-                                 aip->ai_addrlen, QLEN)) >= 0) {
+                                 aip->ai_addrlen, QLEN
+        )) >= 0) {
             serve(sockfd);
             exit(0);
         }

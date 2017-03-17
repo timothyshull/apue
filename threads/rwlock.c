@@ -2,15 +2,15 @@
 #include <pthread.h>
 
 struct job {
-    struct job* j_next;
-    struct job* j_prev;
+    struct job *j_next;
+    struct job *j_prev;
     pthread_t j_id;   /* tells which thread handles this job */
     /* ... more stuff here ... */
 };
 
 struct queue {
-    struct job* q_head;
-    struct job* q_tail;
+    struct job *q_head;
+    struct job *q_tail;
     pthread_rwlock_t q_lock;
 };
 
@@ -18,7 +18,7 @@ struct queue {
  * Initialize a queue.
  */
 int
-queue_init(struct queue* qp)
+queue_init(struct queue *qp)
 {
     int err;
 
@@ -36,7 +36,7 @@ queue_init(struct queue* qp)
  * Insert a job at the head of the queue.
  */
 void
-job_insert(struct queue* qp, struct job* jp)
+job_insert(struct queue *qp, struct job *jp)
 {
     pthread_rwlock_wrlock(&qp->q_lock);
     jp->j_next = qp->q_head;
@@ -54,7 +54,7 @@ job_insert(struct queue* qp, struct job* jp)
  * Append a job on the tail of the queue.
  */
 void
-job_append(struct queue* qp, struct job* jp)
+job_append(struct queue *qp, struct job *jp)
 {
     pthread_rwlock_wrlock(&qp->q_lock);
     jp->j_next = NULL;
@@ -72,7 +72,7 @@ job_append(struct queue* qp, struct job* jp)
  * Remove the given job from a queue.
  */
 void
-job_remove(struct queue* qp, struct job* jp)
+job_remove(struct queue *qp, struct job *jp)
 {
     pthread_rwlock_wrlock(&qp->q_lock);
     if (jp == qp->q_head) {
@@ -95,10 +95,10 @@ job_remove(struct queue* qp, struct job* jp)
 /*
  * Find a job for the given thread ID.
  */
-struct job*
-job_find(struct queue* qp, pthread_t id)
+struct job *
+job_find(struct queue *qp, pthread_t id)
 {
-    struct job* jp;
+    struct job *jp;
 
     if (pthread_rwlock_rdlock(&qp->q_lock) != 0) {
         return (NULL);

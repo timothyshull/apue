@@ -2,14 +2,14 @@
 #include <errno.h>		/* for definition of errno */
 #include <stdarg.h>		/* ISO C variable aruments */
 
-static void err_doit(int, int, const char*, va_list);
+static void err_doit(int, int, const char *, va_list);
 
 /*
  * Nonfatal error related to a system call.
  * Print a message and return.
  */
 void
-err_ret(const char* fmt, ...)
+err_ret(const char *fmt, ...)
 {
     va_list ap;
 
@@ -23,7 +23,7 @@ err_ret(const char* fmt, ...)
  * Print a message and terminate.
  */
 void
-err_sys(const char* fmt, ...)
+err_sys(const char *fmt, ...)
 {
     va_list ap;
 
@@ -39,7 +39,7 @@ err_sys(const char* fmt, ...)
  * Print a message and return.
  */
 void
-err_cont(int error, const char* fmt, ...)
+err_cont(int error, const char *fmt, ...)
 {
     va_list ap;
 
@@ -54,7 +54,7 @@ err_cont(int error, const char* fmt, ...)
  * Print a message and terminate.
  */
 void
-err_exit(int error, const char* fmt, ...)
+err_exit(int error, const char *fmt, ...)
 {
     va_list ap;
 
@@ -69,7 +69,7 @@ err_exit(int error, const char* fmt, ...)
  * Print a message, dump core, and terminate.
  */
 void
-err_dump(const char* fmt, ...)
+err_dump(const char *fmt, ...)
 {
     va_list ap;
 
@@ -85,7 +85,7 @@ err_dump(const char* fmt, ...)
  * Print a message and return.
  */
 void
-err_msg(const char* fmt, ...)
+err_msg(const char *fmt, ...)
 {
     va_list ap;
 
@@ -99,7 +99,7 @@ err_msg(const char* fmt, ...)
  * Print a message and terminate.
  */
 void
-err_quit(const char* fmt, ...)
+err_quit(const char *fmt, ...)
 {
     va_list ap;
 
@@ -114,7 +114,7 @@ err_quit(const char* fmt, ...)
  * Caller specifies "errnoflag".
  */
 static void
-err_doit(int errnoflag, int error, const char* fmt, va_list ap)
+err_doit(int errnoflag, int error, const char *fmt, va_list ap)
 {
     char buf[MAXLINE];
 

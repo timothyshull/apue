@@ -6,7 +6,7 @@
  * buffer into an argv[]-style array, which we now process.
  */
 int
-cli_args(int argc, char** argv)
+cli_args(int argc, char **argv)
 {
     if (argc != 3 || strcmp(argv[0], CL_OPEN) != 0) {
         strcpy(errmsg, "usage: <pathname> <oflag>\n");

@@ -20,6 +20,7 @@ main(void)
 
     /* parent continues here */
     printf("pid = %ld, glob = %d, var = %d\n", (long) getpid(), globvar,
-           var);
+           var
+    );
     exit(0);
 }

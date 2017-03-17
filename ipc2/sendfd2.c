@@ -16,7 +16,7 @@
 #define CREDSLEN    CMSG_LEN(sizeof(struct CREDSTRUCT))
 #define    CONTROLLEN    (RIGHTSLEN + CREDSLEN)
 
-static struct cmsghdr* cmptr = NULL;    /* malloc'ed first time */
+static struct cmsghdr *cmptr = NULL;    /* malloc'ed first time */
 
 /*
  * Pass a file descriptor to another process.
@@ -25,8 +25,8 @@ static struct cmsghdr* cmptr = NULL;    /* malloc'ed first time */
 int
 send_fd(int fd, int fd_to_send)
 {
-    struct CREDSTRUCT* credp;
-    struct cmsghdr* cmp;
+    struct CREDSTRUCT *credp;
+    struct cmsghdr *cmp;
     struct iovec iov[1];
     struct msghdr msg;
     char buf[2];    /* send_fd/recv_ufd 2-byte protocol */
@@ -55,12 +55,12 @@ send_fd(int fd, int fd_to_send)
         cmp->cmsg_level = SOL_SOCKET;
         cmp->cmsg_type = SCM_RIGHTS;
         cmp->cmsg_len = RIGHTSLEN;
-        *(int*) CMSG_DATA(cmp) = fd_to_send;    /* the fd to pass */
+        *(int *) CMSG_DATA(cmp) = fd_to_send;    /* the fd to pass */
         cmp = CMSG_NXTHDR(&msg, cmp);
         cmp->cmsg_level = SOL_SOCKET;
         cmp->cmsg_type = SCM_CREDTYPE;
         cmp->cmsg_len = CREDSLEN;
-        credp = (struct CREDSTRUCT*) CMSG_DATA(cmp);
+        credp = (struct CREDSTRUCT *) CMSG_DATA(cmp);
 #if defined(SCM_CREDENTIALS)
         credp->uid = geteuid();
         credp->gid = getegid();

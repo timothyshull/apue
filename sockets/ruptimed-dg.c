@@ -2,7 +2,6 @@
 #include <netdb.h>
 #include <errno.h>
 #include <syslog.h>
-#include <sys/socket.h>
 
 #define BUFLEN        128
 #define MAXADDRLEN    256
@@ -11,17 +10,17 @@
 #define HOST_NAME_MAX 256
 #endif
 
-extern int initserver(int, const struct sockaddr*, socklen_t, int);
+extern int initserver(int, const struct sockaddr *, socklen_t, int);
 
 void
 serve(int sockfd)
 {
     int n;
     socklen_t alen;
-    FILE* fp;
+    FILE *fp;
     char buf[BUFLEN];
     char abuf[MAXADDRLEN];
-    struct sockaddr* addr = (struct sockaddr*) abuf;
+    struct sockaddr *addr = (struct sockaddr *) abuf;
 
     set_cloexec(sockfd);
     for (;;) {
@@ -44,12 +43,12 @@ serve(int sockfd)
 }
 
 int
-main(int argc, char* argv[])
+main(int argc, char *argv[])
 {
-    struct addrinfo* ailist, * aip;
+    struct addrinfo *ailist, *aip;
     struct addrinfo hint;
     int sockfd, err, n;
-    char* host;
+    char *host;
 
     if (argc != 1) {
         err_quit("usage: ruptimed");
@@ -77,7 +76,8 @@ main(int argc, char* argv[])
     }
     for (aip = ailist; aip != NULL; aip = aip->ai_next) {
         if ((sockfd = initserver(SOCK_DGRAM, aip->ai_addr,
-                                 aip->ai_addrlen, 0)) >= 0) {
+                                 aip->ai_addrlen, 0
+        )) >= 0) {
             serve(sockfd);
             exit(0);
         }

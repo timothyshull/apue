@@ -22,16 +22,17 @@ struct threadinfo {
     struct mymesg m;
 };
 
-void*
-helper(void* arg)
+void *
+helper(void *arg)
 {
     int n;
-    struct threadinfo* tip = arg;
+    struct threadinfo *tip = arg;
 
     for (;;) {
         memset(&tip->m, 0, sizeof(struct mymsg));
         if ((n = msgrcv(tip->qid, &tip->m, MAXMSZ, 0,
-                        MSG_NOERROR)) < 0) {
+                        MSG_NOERROR
+        )) < 0) {
             err_sys("msgrcv error");
         }
         tip->len = n;
@@ -76,7 +77,8 @@ main()
             err_sys("pthread_mutex_init error");
         }
         if ((err = pthread_create(&tid[i], NULL, helper,
-                                  &ti[i])) != 0) {
+                                  &ti[i]
+        )) != 0) {
             err_exit(err, "pthread_create error");
         }
     }
@@ -92,7 +94,8 @@ main()
                 }
                 ti[i].m.mtext[ti[i].len] = 0;
                 printf("queue id %d, message %s\n", qid[i],
-                       ti[i].m.mtext);
+                       ti[i].m.mtext
+                );
                 pthread_mutex_lock(&ti[i].mutex);
                 pthread_cond_signal(&ti[i].ready);
                 pthread_mutex_unlock(&ti[i].mutex);

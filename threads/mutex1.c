@@ -8,10 +8,10 @@ struct foo {
     /* ... more stuff here ... */
 };
 
-struct foo*
+struct foo *
 foo_alloc(int id) /* allocate the object */
 {
-    struct foo* fp;
+    struct foo *fp;
 
     if ((fp = malloc(sizeof(struct foo))) != NULL) {
         fp->f_count = 1;
@@ -26,7 +26,7 @@ foo_alloc(int id) /* allocate the object */
 }
 
 void
-foo_hold(struct foo* fp) /* add a reference to the object */
+foo_hold(struct foo *fp) /* add a reference to the object */
 {
     pthread_mutex_lock(&fp->f_lock);
     fp->f_count++;
@@ -34,7 +34,7 @@ foo_hold(struct foo* fp) /* add a reference to the object */
 }
 
 void
-foo_rele(struct foo* fp) /* release a reference to the object */
+foo_rele(struct foo *fp) /* release a reference to the object */
 {
     pthread_mutex_lock(&fp->f_lock);
     if (--fp->f_count == 0) { /* last reference */

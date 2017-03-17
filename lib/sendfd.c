@@ -4,7 +4,7 @@
 /* size of control buffer to send/recv one file descriptor */
 #define    CONTROLLEN    CMSG_LEN(sizeof(int))
 
-static struct cmsghdr* cmptr = NULL;    /* malloc'ed first time */
+static struct cmsghdr *cmptr = NULL;    /* malloc'ed first time */
 
 /*
  * Pass a file descriptor to another process.
@@ -40,7 +40,7 @@ send_fd(int fd, int fd_to_send)
         cmptr->cmsg_len = CONTROLLEN;
         msg.msg_control = cmptr;
         msg.msg_controllen = CONTROLLEN;
-        *(int*) CMSG_DATA(cmptr) = fd_to_send;        /* the fd to pass */
+        *(int *) CMSG_DATA(cmptr) = fd_to_send;        /* the fd to pass */
         buf[1] = 0;        /* zero status means OK */
     }
 

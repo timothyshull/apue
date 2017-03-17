@@ -5,8 +5,8 @@
 
 extern char errmsg[];    /* error message string to return to client */
 extern int oflag;        /* open() flag: O_xxx ... */
-extern char* pathname;    /* of file to open() for client */
+extern char *pathname;    /* of file to open() for client */
 
-int cli_args(int, char**);
+int cli_args(int, char **);
 
-void handle_request(char*, int, int);
+void handle_request(char *, int, int);

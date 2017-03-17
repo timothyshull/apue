@@ -2,7 +2,7 @@
 
 #define    TOK_ADD       5
 
-void do_line(char*);
+void do_line(char *);
 
 void cmd_add(void);
 
@@ -19,10 +19,10 @@ main(void)
     exit(0);
 }
 
-char* tok_ptr;        /* global pointer for get_token() */
+char *tok_ptr;        /* global pointer for get_token() */
 
 void
-do_line(char* ptr)        /* process one line of input */
+do_line(char *ptr)        /* process one line of input */
 {
     int cmd;
 

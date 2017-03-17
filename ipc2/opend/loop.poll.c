@@ -3,8 +3,8 @@
 
 #define NALLOC    10    /* # pollfd structs to alloc/realloc */
 
-static struct pollfd*
-grow_pollfd(struct pollfd* pfd, int* maxfd)
+static struct pollfd *
+grow_pollfd(struct pollfd *pfd, int *maxfd)
 {
     int i;
     int oldmax = *maxfd;
@@ -28,7 +28,7 @@ loop(void)
     int i, listenfd, clifd, nread;
     char buf[MAXLINE];
     uid_t uid;
-    struct pollfd* pollfd;
+    struct pollfd *pollfd;
     int numfd = 1;
     int maxfd = NALLOC;
 
@@ -82,7 +82,8 @@ loop(void)
                     hungup:
                     /* the client closed the connection */
                     log_msg("closed: uid %d, fd %d",
-                            client[i].uid, pollfd[i].fd);
+                            client[i].uid, pollfd[i].fd
+                    );
                     client_del(pollfd[i].fd);
                     close(pollfd[i].fd);
                     if (i < (numfd - 1)) {
@@ -95,7 +96,8 @@ loop(void)
                     numfd--;
                 } else {        /* process client's request */
                     handle_request(buf, nread, pollfd[i].fd,
-                                   client[i].uid);
+                                   client[i].uid
+                    );
                 }
             }
         }

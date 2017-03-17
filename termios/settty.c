@@ -1,5 +1,4 @@
 #include "apue.h"
-#include <termios.h>
 
 int
 main(void)

@@ -7,7 +7,7 @@
 #include <stdarg.h>		/* ISO C variable arguments */
 #include <syslog.h>
 
-static void log_doit(int, int, int, const char*, va_list ap);
+static void log_doit(int, int, int, const char *, va_list ap);
 
 /*
  * Caller must define and set this: nonzero if
@@ -19,7 +19,7 @@ extern int log_to_stderr;
  * Initialize syslog(), if running as daemon.
  */
 void
-log_open(const char* ident, int option, int facility)
+log_open(const char *ident, int option, int facility)
 {
     if (log_to_stderr == 0) {
         openlog(ident, option, facility);
@@ -31,7 +31,7 @@ log_open(const char* ident, int option, int facility)
  * Print a message with the system's errno value and return.
  */
 void
-log_ret(const char* fmt, ...)
+log_ret(const char *fmt, ...)
 {
     va_list ap;
 
@@ -45,7 +45,7 @@ log_ret(const char* fmt, ...)
  * Print a message and terminate.
  */
 void
-log_sys(const char* fmt, ...)
+log_sys(const char *fmt, ...)
 {
     va_list ap;
 
@@ -60,7 +60,7 @@ log_sys(const char* fmt, ...)
  * Print a message and return.
  */
 void
-log_msg(const char* fmt, ...)
+log_msg(const char *fmt, ...)
 {
     va_list ap;
 
@@ -74,7 +74,7 @@ log_msg(const char* fmt, ...)
  * Print a message and terminate.
  */
 void
-log_quit(const char* fmt, ...)
+log_quit(const char *fmt, ...)
 {
     va_list ap;
 
@@ -90,7 +90,7 @@ log_quit(const char* fmt, ...)
  * Print a message and terminate.
  */
 void
-log_exit(int error, const char* fmt, ...)
+log_exit(int error, const char *fmt, ...)
 {
     va_list ap;
 
@@ -105,7 +105,7 @@ log_exit(int error, const char* fmt, ...)
  * Caller specifies "errnoflag" and "priority".
  */
 static void
-log_doit(int errnoflag, int error, int priority, const char* fmt,
+log_doit(int errnoflag, int error, int priority, const char *fmt,
          va_list ap)
 {
     char buf[MAXLINE];

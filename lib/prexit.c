@@ -1,5 +1,4 @@
 #include "apue.h"
-#include <sys/wait.h>
 
 void
 pr_exit(int status)
@@ -13,7 +12,8 @@ pr_exit(int status)
 #ifdef    WCOREDUMP
                 WCOREDUMP(status) ? " (core file generated)" : "");
 #else
-               "");
+               ""
+        );
     }
 #endif
     else if (WIFSTOPPED(status)) {

@@ -17,8 +17,8 @@ pthread_barrier_t b;
 #define heapsort qsort
 #else
 
-extern int heapsort(void*, size_t, size_t,
-                    int (*)(const void*, const void*));
+extern int heapsort(void *, size_t, size_t,
+                    int (*)(const void *, const void *));
 
 #endif
 
@@ -26,10 +26,10 @@ extern int heapsort(void*, size_t, size_t,
  * Compare two long integers (helper function for heapsort)
  */
 int
-complong(const void* arg1, const void* arg2)
+complong(const void *arg1, const void *arg2)
 {
-    long l1 = *(long*) arg1;
-    long l2 = *(long*) arg2;
+    long l1 = *(long *) arg1;
+    long l2 = *(long *) arg2;
 
     if (l1 == l2) {
         return 0;
@@ -43,8 +43,8 @@ complong(const void* arg1, const void* arg2)
 /*
  * Worker thread to sort a portion of the set of numbers.
  */
-void*
-thr_fn(void* arg)
+void *
+thr_fn(void *arg)
 {
     long idx = (long) arg;
 
@@ -54,7 +54,7 @@ thr_fn(void* arg)
     /*
      * Go off and perform more work ...
      */
-    return ((void*) 0);
+    return ((void *) 0);
 }
 
 /*
@@ -106,7 +106,7 @@ main()
     gettimeofday(&start, NULL);
     pthread_barrier_init(&b, NULL, NTHR + 1);
     for (i = 0; i < NTHR; i++) {
-        err = pthread_create(&tid, NULL, thr_fn, (void*) (i * TNUM));
+        err = pthread_create(&tid, NULL, thr_fn, (void *) (i * TNUM));
         if (err != 0) {
             err_exit(err, "can't create thread");
         }

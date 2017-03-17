@@ -4,10 +4,10 @@
 #include <unistd.h>
 #include <errno.h>
 
-struct slock*
+struct slock *
 s_alloc()
 {
-    struct slock* sp;
+    struct slock *sp;
     static int cnt;
 
     if ((sp = malloc(sizeof(struct slock))) == NULL) {
@@ -27,26 +27,26 @@ s_alloc()
 }
 
 void
-s_free(struct slock* sp)
+s_free(struct slock *sp)
 {
     sem_close(sp->semp);
     free(sp);
 }
 
 int
-s_lock(struct slock* sp)
+s_lock(struct slock *sp)
 {
     return (sem_wait(sp->semp));
 }
 
 int
-s_trylock(struct slock* sp)
+s_trylock(struct slock *sp)
 {
     return (sem_trywait(sp->semp));
 }
 
 int
-s_unlock(struct slock* sp)
+s_unlock(struct slock *sp)
 {
     return (sem_post(sp->semp));
 }

@@ -1,13 +1,13 @@
 #include "apue.h"
 #include <errno.h>
 
-void make_temp(char* template);
+void make_temp(char *template);
 
 int
 main()
 {
     char good_template[] = "/tmp/dirXXXXXX";    /* right way */
-    char* bad_template = "/tmp/dirXXXXXX";    /* wrong way*/
+    char *bad_template = "/tmp/dirXXXXXX";    /* wrong way*/
 
     printf("trying to create first temp file...\n");
     make_temp(good_template);
@@ -17,7 +17,7 @@ main()
 }
 
 void
-make_temp(char* template)
+make_temp(char *template)
 {
     int fd;
     struct stat sbuf;

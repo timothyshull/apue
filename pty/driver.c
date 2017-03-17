@@ -1,7 +1,7 @@
 #include "apue.h"
 
 void
-do_driver(char* driver)
+do_driver(char *driver)
 {
     pid_t child;
     int pipe[2];
@@ -32,7 +32,7 @@ do_driver(char* driver)
         }
 
         /* leave stderr for driver alone */
-        execlp(driver, driver, (char*) 0);
+        execlp(driver, driver, (char *) 0);
         err_sys("execlp error for: %s", driver);
     }
 

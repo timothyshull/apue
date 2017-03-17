@@ -1,12 +1,12 @@
 #include "apue.h"
 #include <errno.h>
 
-static void pr_sysconf(char*, int);
+static void pr_sysconf(char *, int);
 
-static void pr_pathconf(char*, char*, int);
+static void pr_pathconf(char *, char *, int);
 
 int
-main(int argc, char* argv[])
+main(int argc, char *argv[])
 {
     if (argc != 2) {
         err_quit("usage: a.out <dirname>");
@@ -654,7 +654,7 @@ main(int argc, char* argv[])
 }
 
 static void
-pr_sysconf(char* mesg, int name)
+pr_sysconf(char *mesg, int name)
 {
     long val;
 
@@ -676,7 +676,7 @@ pr_sysconf(char* mesg, int name)
 }
 
 static void
-pr_pathconf(char* mesg, char* path, int name)
+pr_pathconf(char *mesg, char *path, int name)
 {
     long val;
 

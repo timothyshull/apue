@@ -5,7 +5,7 @@ int
 main(void)
 {
     time_t caltime;
-    struct tm* tm;
+    struct tm *tm;
     char line[MAXLINE];
 
     if ((caltime = time(NULL)) == -1) {

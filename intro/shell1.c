@@ -1,5 +1,4 @@
 #include "apue.h"
-#include <sys/wait.h>
 
 int
 main(void)
@@ -17,7 +16,7 @@ main(void)
         if ((pid = fork()) < 0) {
             err_sys("fork error");
         } else if (pid == 0) {        /* child */
-            execlp(buf, buf, (char*) 0);
+            execlp(buf, buf, (char *) 0);
             err_ret("couldn't execute: %s", buf);
             exit(127);
         }

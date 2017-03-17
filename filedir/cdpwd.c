@@ -3,7 +3,7 @@
 int
 main(void)
 {
-    char* ptr;
+    char *ptr;
     size_t size;
 
     if (chdir("/usr/spool/uucppublic") < 0) {

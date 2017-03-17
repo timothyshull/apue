@@ -7,9 +7,9 @@
 #endif
 
 int
-ptym_open(char* pts_name, int pts_namesz)
+ptym_open(char *pts_name, int pts_namesz)
 {
-    char* ptr;
+    char *ptr;
     int fdm, err;
 
     if ((fdm = posix_openpt(O_RDWR)) < 0) {
@@ -40,7 +40,7 @@ ptym_open(char* pts_name, int pts_namesz)
 }
 
 int
-ptys_open(char* pts_name)
+ptys_open(char *pts_name)
 {
     int fds;
 #if defined(SOLARIS)

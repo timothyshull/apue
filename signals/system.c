@@ -4,7 +4,7 @@
 #include	<unistd.h>
 
 int
-system(const char* cmdstring)    /* with appropriate signal handling */
+system(const char *cmdstring)    /* with appropriate signal handling */
 {
     pid_t pid;
     int status;
@@ -38,7 +38,7 @@ system(const char* cmdstring)    /* with appropriate signal handling */
         sigaction(SIGQUIT, &savequit, NULL);
         sigprocmask(SIG_SETMASK, &savemask, NULL);
 
-        execl("/bin/sh", "sh", "-c", cmdstring, (char*) 0);
+        execl("/bin/sh", "sh", "-c", cmdstring, (char *) 0);
         _exit(127);        /* exec error */
     } else {                        /* parent */
         while (waitpid(pid, &status, 0) < 0) {

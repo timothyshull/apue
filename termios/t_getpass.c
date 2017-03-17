@@ -1,11 +1,11 @@
 #include "apue.h"
 
-char* getpass(const char*);
+char *getpass(const char *);
 
 int
 main(void)
 {
-    char* ptr;
+    char *ptr;
 
     if ((ptr = getpass("Enter password:")) == NULL) {
         err_sys("getpass error");

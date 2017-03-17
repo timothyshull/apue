@@ -1,17 +1,17 @@
 #include "apue.h"
 
-void pr_stdio(const char*, FILE*);
+void pr_stdio(const char *, FILE *);
 
-int is_unbuffered(FILE*);
+int is_unbuffered(FILE *);
 
-int is_linebuffered(FILE*);
+int is_linebuffered(FILE *);
 
-int buffer_size(FILE*);
+int buffer_size(FILE *);
 
 int
 main(void)
 {
-    FILE* fp;
+    FILE *fp;
 
     fputs("enter any character\n", stdout);
     if (getchar() == EOF) {
@@ -34,7 +34,7 @@ main(void)
 }
 
 void
-pr_stdio(const char* name, FILE* fp)
+pr_stdio(const char *name, FILE *fp)
 {
     printf("stream = %s, ", name);
     if (is_unbuffered(fp)) {
@@ -74,19 +74,19 @@ buffer_size(FILE *fp)
 #elif defined(__SNBF)
 
 int
-is_unbuffered(FILE* fp)
+is_unbuffered(FILE *fp)
 {
     return (fp->_flags & __SNBF);
 }
 
 int
-is_linebuffered(FILE* fp)
+is_linebuffered(FILE *fp)
 {
     return (fp->_flags & __SLBF);
 }
 
 int
-buffer_size(FILE* fp)
+buffer_size(FILE *fp)
 {
     return (fp->_bf._size);
 }

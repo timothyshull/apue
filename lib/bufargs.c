@@ -11,9 +11,9 @@
  * array is modified (nulls placed after each token).
  */
 int
-buf_args(char* buf, int (* optfunc)(int, char**))
+buf_args(char *buf, int (*optfunc)(int, char **))
 {
-    char* ptr, * argv[MAXARGC];
+    char *ptr, *argv[MAXARGC];
     int argc;
 
     if (strtok(buf, WHITE) == NULL) {        /* an argv[0] is required */

@@ -47,8 +47,8 @@ child(void)
     }
 }
 
-void*
-thr_fn(void* arg)
+void *
+thr_fn(void *arg)
 {
     printf("thread started...\n");
     pause();

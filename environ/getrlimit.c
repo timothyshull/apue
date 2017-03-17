@@ -1,9 +1,8 @@
 #include "apue.h"
-#include <sys/resource.h>
 
 #define    doit(name)    pr_limits(#name, name)
 
-static void pr_limits(char*, int);
+static void pr_limits(char *, int);
 
 int
 main(void)
@@ -65,7 +64,7 @@ main(void)
 }
 
 static void
-pr_limits(char* name, int resource)
+pr_limits(char *name, int resource)
 {
     struct rlimit limit;
     unsigned long long lim;

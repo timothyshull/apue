@@ -15,7 +15,7 @@ unsigned long long count;
 struct timeval end;
 
 void
-checktime(char* str)
+checktime(char *str)
 {
     struct timeval tv;
 
@@ -27,10 +27,10 @@ checktime(char* str)
 }
 
 int
-main(int argc, char* argv[])
+main(int argc, char *argv[])
 {
     pid_t pid;
-    char* s;
+    char *s;
     int nzero, ret;
     int adj = 0;
 
@@ -54,7 +54,8 @@ main(int argc, char* argv[])
     } else if (pid == 0) {    /* child */
         s = "child";
         printf("current nice value in child is %d, adjusting by %d\n",
-               nice(0) + nzero, adj);
+               nice(0) + nzero, adj
+        );
         errno = 0;
         if ((ret = nice(adj)) == -1 && errno != 0) {
             err_sys("child set scheduling priority");

@@ -2,7 +2,7 @@
 #include <errno.h>
 
 void
-pr_mask(const char* str)
+pr_mask(const char *str)
 {
     sigset_t sigset;
     int errno_save;

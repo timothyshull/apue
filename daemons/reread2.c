@@ -23,9 +23,9 @@ void sighup(int signo)
     reread();
 }
 
-int main(int argc, char* argv[])
+int main(int argc, char *argv[])
 {
-    char* cmd;
+    char *cmd;
     struct sigaction sa;
 
     if ((cmd = strrchr(argv[0], '/')) == NULL) {

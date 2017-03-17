@@ -45,21 +45,21 @@
 #define ETIME ETIMEDOUT
 #endif
 
-extern int getaddrlist(const char*, const char*,
-                       struct addrinfo**);
+extern int getaddrlist(const char *, const char *,
+                       struct addrinfo **);
 
-extern char* get_printserver(void);
+extern char *get_printserver(void);
 
-extern struct addrinfo* get_printaddr(void);
+extern struct addrinfo *get_printaddr(void);
 
-extern ssize_t tread(int, void*, size_t, unsigned int);
+extern ssize_t tread(int, void *, size_t, unsigned int);
 
-extern ssize_t treadn(int, void*, size_t, unsigned int);
+extern ssize_t treadn(int, void *, size_t, unsigned int);
 
-extern int connect_retry(int, int, int, const struct sockaddr*,
+extern int connect_retry(int, int, int, const struct sockaddr *,
                          socklen_t);
 
-extern int initserver(int, const struct sockaddr*, socklen_t,
+extern int initserver(int, const struct sockaddr *, socklen_t,
                       int);
 
 /*

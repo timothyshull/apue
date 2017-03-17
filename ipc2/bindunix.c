@@ -14,7 +14,7 @@ main(void)
         err_sys("socket failed");
     }
     size = offsetof(struct sockaddr_un, sun_path) + strlen(un.sun_path);
-    if (bind(fd, (struct sockaddr*) &un, size) < 0) {
+    if (bind(fd, (struct sockaddr *) &un, size) < 0) {
         err_sys("bind failed");
     }
     printf("UNIX domain socket bound\n");

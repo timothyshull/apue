@@ -52,7 +52,8 @@ loop(void)
                     log_sys("read error on fd %d", clifd);
                 } else if (nread == 0) {
                     log_msg("closed: uid %d, fd %d",
-                            client[i].uid, clifd);
+                            client[i].uid, clifd
+                    );
                     client_del(clifd);    /* client has closed cxn */
                     FD_CLR(clifd, &allset);
                     close(clifd);

@@ -1,6 +1,6 @@
 #include "apue.h"
 
-static void charatatime(char*);
+static void charatatime(char *);
 
 int
 main(void)
@@ -22,9 +22,9 @@ main(void)
 }
 
 static void
-charatatime(char* str)
+charatatime(char *str)
 {
-    char* ptr;
+    char *ptr;
     int c;
 
     setbuf(stdout, NULL);            /* set unbuffered */

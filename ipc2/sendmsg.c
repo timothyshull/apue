@@ -9,7 +9,7 @@ struct mymesg {
 };
 
 int
-main(int argc, char* argv[])
+main(int argc, char *argv[])
 {
     key_t key;
     long qid;

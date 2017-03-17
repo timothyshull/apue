@@ -1,9 +1,9 @@
 #include	<stdio.h>
 
-FILE*
+FILE *
 open_data(void)
 {
-    FILE* fp;
+    FILE *fp;
     char databuf[BUFSIZ];  /* setvbuf makes this the stdio buffer */
 
     if ((fp = fopen("datafile", "r")) == NULL) {

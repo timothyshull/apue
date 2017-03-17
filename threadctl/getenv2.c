@@ -1,9 +1,8 @@
 #include <string.h>
 #include <errno.h>
 #include <pthread.h>
-#include <stdlib.h>
 
-extern char** environ;
+extern char **environ;
 
 pthread_mutex_t env_mutex;
 
@@ -21,7 +20,7 @@ thread_init(void)
 }
 
 int
-getenv_r(const char* name, char* buf, int buflen)
+getenv_r(const char *name, char *buf, int buflen)
 {
     int i, len, olen;
 

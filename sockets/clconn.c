@@ -4,7 +4,7 @@
 #define MAXSLEEP 128
 
 int
-connect_retry(int sockfd, const struct sockaddr* addr, socklen_t alen)
+connect_retry(int sockfd, const struct sockaddr *addr, socklen_t alen)
 {
     int numsec;
 
