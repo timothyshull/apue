@@ -1,0 +1,7 @@
+include_directories(${libapue_SOURCE_DIR} ${apue_SOURCE_DIR}/include)
+add_executable(print print.c)
+target_link_libraries(print apue)
+add_executable(printd printd.c)
+target_link_libraries(printd apue)
+add_executable(util util.c)
+target_link_libraries(util apue)

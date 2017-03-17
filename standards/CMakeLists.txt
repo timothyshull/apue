@@ -1,0 +1,5 @@
+include_directories(${libapue_SOURCE_DIR} ${apue_SOURCE_DIR}/include)
+add_executable(conf conf.c)
+target_link_libraries(conf apue)
+add_executable(options options.c)
+target_link_libraries(options apue)

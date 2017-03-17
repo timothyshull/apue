@@ -1,0 +1,7 @@
+include_directories(${libapue_SOURCE_DIR} ${apue_SOURCE_DIR}/include)
+add_executable(driver driver.c)
+target_link_libraries(driver apue)
+add_executable(loop loop.c)
+target_link_libraries(loop apue)
+add_executable(main main.c)
+target_link_libraries(main apue)
