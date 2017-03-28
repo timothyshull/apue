@@ -1,5 +1,7 @@
 #include "apue.h"
 #include <pthread.h>
+#include <time.h>
+#include <sys/time.h>
 
 extern int makethread(void *(*)(void *), void *);
 
@@ -12,22 +14,22 @@ struct to_info {
 #define SECTONSEC  1000000000    /* seconds to nanoseconds */
 
 #if !defined(CLOCK_REALTIME) || defined(BSD)
-#define clock_nanosleep(ID, FL, REQ, REM)    nanosleep((REQ), (REM))
+#define clock_nanosleep(ID, FL, REQ, REM)	nanosleep((REQ), (REM))
 #endif
 
 #ifndef CLOCK_REALTIME
 #define CLOCK_REALTIME 0
-#define USECTONSEC 1000        /* microseconds to nanoseconds */
+#define USECTONSEC 1000		/* microseconds to nanoseconds */
 
 void
-clock_gettime(int id, struct timespec *tsp) {
+clock_gettime(int id, struct timespec *tsp)
+{
     struct timeval tv;
 
     gettimeofday(&tv, NULL);
     tsp->tv_sec = tv.tv_sec;
     tsp->tv_nsec = tv.tv_usec * USECTONSEC;
 }
-
 #endif
 
 void *
@@ -81,7 +83,6 @@ timeout(const struct timespec *when, void (*func)(void *), void *arg)
 }
 
 pthread_mutexattr_t attr;
-
 pthread_mutex_t mutex;
 
 void

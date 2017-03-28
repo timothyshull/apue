@@ -1,7 +1,8 @@
 #include <unistd.h>
 #include <fcntl.h>
 
-int lockfile(int fd)
+int
+lockfile(int fd)
 {
     struct flock fl;
 

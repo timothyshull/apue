@@ -1,4 +1,5 @@
 #include "apue.h"
+#include <sys/wait.h>
 
 int
 main(void)
@@ -23,20 +24,17 @@ main(void)
         abort();
     }                    /* generates SIGABRT */
 
-    if (wait(&status) != pid) {        /* wait for child */
+    if (wait(&status) != pid)        /* wait for child */
         err_sys("wait error");
-    }
     pr_exit(status);                /* and print its status */
 
-    if ((pid = fork()) < 0) {
+    if ((pid = fork()) < 0)
         err_sys("fork error");
-    } else if (pid == 0) {                /* child */
-        status /= 0;
-    }                /* divide by 0 generates SIGFPE */
+    else if (pid == 0)                /* child */
+        status /= 0;                /* divide by 0 generates SIGFPE */
 
-    if (wait(&status) != pid) {        /* wait for child */
+    if (wait(&status) != pid)        /* wait for child */
         err_sys("wait error");
-    }
     pr_exit(status);                /* and print its status */
 
     exit(0);

@@ -1,4 +1,5 @@
 #include	"apue.h"
+#include	<sys/wait.h>
 
 static void sig_cld(int);
 

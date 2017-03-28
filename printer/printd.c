@@ -49,33 +49,24 @@ int log_to_stderr = 0;
  * Printer-related stuff.
  */
 struct addrinfo *printer;
-
 char *printer_name;
-
 pthread_mutex_t configlock = PTHREAD_MUTEX_INITIALIZER;
-
 int reread;
 
 /*
  * Thread-related stuff.
  */
 struct worker_thread *workers;
-
 pthread_mutex_t workerlock = PTHREAD_MUTEX_INITIALIZER;
-
 sigset_t mask;
 
 /*
  * Job-related stuff.
  */
 struct job *jobhead, *jobtail;
-
 int jobfd;
-
 int32_t nextjob;
-
 pthread_mutex_t joblock = PTHREAD_MUTEX_INITIALIZER;
-
 pthread_cond_t jobwait = PTHREAD_COND_INITIALIZER;
 
 /*
@@ -269,9 +260,8 @@ init_printer(void)
         exit(1);
     }    /* message already logged */
     printer_name = printer->ai_canonname;
-    if (printer_name == NULL) {
+    if (printer_name == NULL)
         printer_name = "printer";
-    }
     log_msg("printer is %s", printer_name);
 }
 
@@ -408,7 +398,7 @@ build_qonstart(void)
          */
         if (strcmp(entp->d_name, ".") == 0 ||
             strcmp(entp->d_name, "..") == 0) {
-            continue;
+                continue;
         }
 
         /*

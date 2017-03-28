@@ -1,4 +1,5 @@
 #include <sys/time.h>
+#include <stdlib.h>
 
 void
 maketimeout(struct timespec *tsp, long minutes)

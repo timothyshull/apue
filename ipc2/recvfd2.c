@@ -1,5 +1,6 @@
 #include "apue.h"
 #include <sys/socket.h>		/* struct msghdr */
+#include <sys/un.h>
 
 #if defined(SCM_CREDS)            /* BSD interface */
 #define CREDSTRUCT		cmsgcred

@@ -1,4 +1,4 @@
-
+#include <limits.h>
 #include <string.h>
 #include <pthread.h>
 #include <stdlib.h>
@@ -6,9 +6,7 @@
 #define MAXSTRINGSZ    4096
 
 static pthread_key_t key;
-
 static pthread_once_t init_done = PTHREAD_ONCE_INIT;
-
 pthread_mutex_t env_mutex = PTHREAD_MUTEX_INITIALIZER;
 
 extern char **environ;

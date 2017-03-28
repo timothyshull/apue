@@ -20,9 +20,8 @@ send_err(int fd, int errcode, const char *msg)
         errcode = -1;
     }    /* must be negative */
 
-    if (send_fd(fd, errcode) < 0) {
+    if (send_fd(fd, errcode) < 0)
         return (-1);
-    }
 
     return (0);
 }

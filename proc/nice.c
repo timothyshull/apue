@@ -11,7 +11,6 @@
 #endif
 
 unsigned long long count;
-
 struct timeval end;
 
 void

@@ -1,6 +1,7 @@
 #include <string.h>
 #include <errno.h>
 #include <pthread.h>
+#include <stdlib.h>
 
 extern char **environ;
 

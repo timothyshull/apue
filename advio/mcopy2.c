@@ -4,7 +4,8 @@
 
 #define COPYINCR (1024*1024*1024)    /* 1 GB */
 
-int main(int argc, char *argv[])
+int
+main(int argc, char *argv[])
 {
     int fdin, fdout;
     void *src, *dst;
@@ -22,7 +23,7 @@ int main(int argc, char *argv[])
 
     if ((fdout = open(argv[2], O_RDWR | O_CREAT | O_TRUNC,
                       FILE_MODE)) < 0) {
-        err_sys("can't creat %s for writing", argv[2]);
+                          err_sys("can't creat %s for writing", argv[2]);
     }
 
     if (fstat(fdin, &sbuf) < 0) {            /* need size of input file */

@@ -1,4 +1,5 @@
 #include "apue.h"
+#include <termios.h>
 
 pid_t
 pty_fork(int *ptrfdm, char *slave_name, int slave_namesz,
@@ -72,7 +73,7 @@ pty_fork(int *ptrfdm, char *slave_name, int slave_namesz,
         }
         if (fds != STDIN_FILENO && fds != STDOUT_FILENO &&
             fds != STDERR_FILENO) {
-            close(fds);
+                close(fds);
         }
         return (0);        /* child returns 0 just like fork() */
     } else {                    /* parent */

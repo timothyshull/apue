@@ -1,5 +1,8 @@
 #include "apue.h"
+#include <errno.h>
 #include <fcntl.h>
+#include <sys/socket.h>
+#include <sys/ioctl.h>
 
 #if defined(BSD) || defined(MACOS) || defined(SOLARIS)
 #include <sys/filio.h>

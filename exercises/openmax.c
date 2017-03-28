@@ -1,5 +1,6 @@
 #include "apue.h"
 #include <limits.h>
+#include <sys/resource.h>
 
 #define OPEN_MAX_GUESS    256
 

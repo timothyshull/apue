@@ -6,12 +6,14 @@ sigset_t mask;
 
 extern int already_running(void);
 
-void reread(void)
+void
+reread(void)
 {
     /* ... */
 }
 
-void *thr_fn(void *arg)
+void *
+thr_fn(void *arg)
 {
     int err, signo;
 
@@ -36,9 +38,11 @@ void *thr_fn(void *arg)
                 syslog(LOG_INFO, "unexpected signal %d\n", signo);
         }
     }
+    return (0);
 }
 
-int main(int argc, char *argv[])
+int
+main(int argc, char *argv[])
 {
     int err;
     pthread_t tid;

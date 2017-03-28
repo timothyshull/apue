@@ -1,12 +1,11 @@
 #include "apue.h"
 #include <errno.h>
+#include <limits.h>
 
 #ifdef    OPEN_MAX
 static long	openmax = OPEN_MAX;
 #else
-
 static long openmax = 0;
-
 #endif
 
 /*

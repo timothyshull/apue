@@ -16,19 +16,15 @@ main(int argc, char *argv[])
         } /* replace newline with null */
 
         /* open the file */
-        if ((fd = csopen(line, O_RDONLY)) < 0) {
-            continue;
-        }    /* csopen() prints error from server */
+        if ((fd = csopen(line, O_RDONLY)) < 0)
+            continue;    /* csopen() prints error from server */
 
         /* and cat to stdout */
-        while ((n = read(fd, buf, BUFFSIZE)) > 0) {
-            if (write(STDOUT_FILENO, buf, n) != n) {
+        while ((n = read(fd, buf, BUFFSIZE)) > 0)
+            if (write(STDOUT_FILENO, buf, n) != n)
                 err_sys("write error");
-            }
-        }
-        if (n < 0) {
+        if (n < 0)
             err_sys("read error");
-        }
         close(fd);
     }
 

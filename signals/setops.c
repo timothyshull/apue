@@ -25,7 +25,6 @@ errno = EINVAL;
 return(-1);
 }
 *set &=
-
 ~(1 << (signo - 1));    /* turn bit off */
 return(0);
 }

@@ -26,11 +26,11 @@ csopen(char *name, int oflag)
             close(fd[0]);
             if (fd[1] != STDIN_FILENO &&
                 dup2(fd[1], STDIN_FILENO) != STDIN_FILENO) {
-                err_sys("dup2 error to stdin");
+                    err_sys("dup2 error to stdin");
             }
             if (fd[1] != STDOUT_FILENO &&
                 dup2(fd[1], STDOUT_FILENO) != STDOUT_FILENO) {
-                err_sys("dup2 error to stdout");
+                    err_sys("dup2 error to stdout");
             }
             if (execl("./opend", "opend", (char *) 0) < 0) {
                 err_sys("execl error");

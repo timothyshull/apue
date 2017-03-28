@@ -35,9 +35,8 @@ loop(void)
             if (clifd > maxfd) {
                 maxfd = clifd;
             }    /* max fd for select() */
-            if (i > maxi) {
-                maxi = i;
-            }    /* max index in client[] array */
+            if (i > maxi)
+                maxi = i;    /* max index in client[] array */
             log_msg("new connection: uid %d, fd %d", uid, clifd);
             continue;
         }

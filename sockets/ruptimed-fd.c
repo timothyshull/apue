@@ -2,6 +2,9 @@
 #include <netdb.h>
 #include <errno.h>
 #include <syslog.h>
+#include <fcntl.h>
+#include <sys/socket.h>
+#include <sys/wait.h>
 
 #define QLEN 10
 
@@ -66,12 +69,10 @@ main(int argc, char *argv[])
     if ((n = sysconf(_SC_HOST_NAME_MAX)) < 0) {
         n = HOST_NAME_MAX;
     }    /* best guess */
-    if ((host = malloc(n)) == NULL) {
+    if ((host = malloc(n)) == NULL)
         err_sys("malloc error");
-    }
-    if (gethostname(host, n) < 0) {
+    if (gethostname(host, n) < 0)
         err_sys("gethostname error");
-    }
     daemonize("ruptimed");
     memset(&hint, 0, sizeof(hint));
     hint.ai_flags = AI_CANONNAME;

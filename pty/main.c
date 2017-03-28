@@ -1,4 +1,5 @@
 #include "apue.h"
+#include <termios.h>
 
 #ifdef LINUX
 #define OPTSTR "+d:einv"
@@ -79,9 +80,8 @@ main(int argc, char *argv[])
             set_noecho(STDIN_FILENO);
         }    /* stdin is slave pty */
 
-        if (execvp(argv[optind], &argv[optind]) < 0) {
+        if (execvp(argv[optind], &argv[optind]) < 0)
             err_sys("can't execute: %s", argv[optind]);
-        }
     }
 
     if (verbose) {

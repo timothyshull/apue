@@ -22,6 +22,13 @@
 
 #endif
 
+#include <stdio.h>		/* for convenience */
+#include <stdlib.h>		/* for convenience */
+#include <stddef.h>		/* for offsetof */
+#include <string.h>		/* for convenience */
+#include <unistd.h>		/* for convenience */
+#include <signal.h>		/* for SIG_ERR */
+
 #define    MAXLINE    4096            /* max line length */
 
 /*

@@ -6,7 +6,8 @@
 
 unsigned char buf[BSZ];
 
-unsigned char translate(unsigned char c)
+unsigned char
+translate(unsigned char c)
 {
     if (isalpha(c)) {
         if (c >= 'n') {
@@ -22,10 +23,10 @@ unsigned char translate(unsigned char c)
     return (c);
 }
 
-int main(int argc, char *argv[])
+int
+main(int argc, char *argv[])
 {
-    int ifd, ofd, i;
-    ssize_t n, nw;
+    int ifd, ofd, i, n, nw;
 
     if (argc != 3) {
         err_quit("usage: rot13 infile outfile");
@@ -41,7 +42,7 @@ int main(int argc, char *argv[])
         for (i = 0; i < n; i++) {
             buf[i] = translate(buf[i]);
         }
-        if ((nw = write(ofd, buf, (size_t) n)) != n) {
+        if ((nw = write(ofd, buf, n)) != n) {
             if (nw < 0) {
                 err_sys("write failed");
             } else {

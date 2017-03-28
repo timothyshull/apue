@@ -1,7 +1,8 @@
 #include "apue.h"
 #include <fcntl.h>
 
-static void lockabyte(const char *name, int fd, off_t offset)
+static void
+lockabyte(const char *name, int fd, off_t offset)
 {
     if (writew_lock(fd, offset, SEEK_SET, 1) < 0) {
         err_sys("%s: writew_lock error", name);
@@ -9,7 +10,8 @@ static void lockabyte(const char *name, int fd, off_t offset)
     printf("%s: got the lock, byte %lld\n", name, (long long) offset);
 }
 
-int main(void)
+int
+main(void)
 {
     int fd;
     pid_t pid;

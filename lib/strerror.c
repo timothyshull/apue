@@ -1,9 +1,9 @@
 #include	<stdio.h>
 
-//#ifndef LINUX
-//extern char	*sys_errlist[];
-//extern int	sys_nerr;
-//#endif
+#ifndef LINUX
+extern char *sys_errlist[];
+extern int sys_nerr;
+#endif
 
 char *
 strerror(int error)

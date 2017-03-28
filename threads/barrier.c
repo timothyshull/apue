@@ -8,7 +8,6 @@
 #define TNUM   (NUMNUM/NTHR)    /* number to sort per thread */
 
 long nums[NUMNUM];
-
 long snums[NUMNUM];
 
 pthread_barrier_t b;

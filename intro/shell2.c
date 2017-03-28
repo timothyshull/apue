@@ -1,4 +1,5 @@
 #include "apue.h"
+#include <sys/wait.h>
 
 static void sig_int(int);        /* our signal-catching function */
 
@@ -28,9 +29,8 @@ main(void)
         }
 
         /* parent */
-        if ((pid = waitpid(pid, &status, 0)) < 0) {
+        if ((pid = waitpid(pid, &status, 0)) < 0)
             err_sys("waitpid error");
-        }
         printf("%% ");
     }
     exit(0);

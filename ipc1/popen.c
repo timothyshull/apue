@@ -1,5 +1,7 @@
 #include "apue.h"
 #include <errno.h>
+#include <fcntl.h>
+#include <sys/wait.h>
 
 /*
  * Pointer to array allocated at run-time.
@@ -61,11 +63,9 @@ popen(const char *cmdstring, const char *type)
         }
 
         /* close all descriptors in childpid[] */
-        for (i = 0; i < maxfd; i++) {
-            if (childpid[i] > 0) {
+        for (i = 0; i < maxfd; i++)
+            if (childpid[i] > 0)
                 close(i);
-            }
-        }
 
         execl("/bin/sh", "sh", "-c", cmdstring, (char *) 0);
         _exit(127);
@@ -74,14 +74,12 @@ popen(const char *cmdstring, const char *type)
     /* parent continues... */
     if (*type == 'r') {
         close(pfd[1]);
-        if ((fp = fdopen(pfd[0], type)) == NULL) {
+        if ((fp = fdopen(pfd[0], type)) == NULL)
             return (NULL);
-        }
     } else {
         close(pfd[0]);
-        if ((fp = fdopen(pfd[1], type)) == NULL) {
+        if ((fp = fdopen(pfd[1], type)) == NULL)
             return (NULL);
-        }
     }
 
     childpid[fileno(fp)] = pid;    /* remember child pid for this fd */

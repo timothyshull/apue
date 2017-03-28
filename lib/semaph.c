@@ -110,9 +110,8 @@ sem_create(key_t key, int initval)
     }    /* probably an ftok() error by caller */
 
     again:
-    if ((id = semget(key, 3, 0666 | IPC_CREAT)) < 0) {
-        return (-1);
-    }    /* permission problem or tables full */
+    if ((id = semget(key, 3, 0666 | IPC_CREAT)) < 0)
+        return (-1);    /* permission problem or tables full */
 
     /*
      * When the semaphore is created, we know that the value of all
@@ -130,9 +129,8 @@ sem_create(key_t key, int initval)
      */
 
     if (semop(id, &op_lock[0], 2) < 0) {
-        if (errno == EINVAL) {
+        if (errno == EINVAL)
             goto again;
-        }
         err_sys("can't lock");
     }
 
@@ -141,9 +139,8 @@ sem_create(key_t key, int initval)
      * then no one has initialized the semaphore yet.
      */
 
-    if ((semval = semctl(id, 1, GETVAL, 0)) < 0) {
+    if ((semval = semctl(id, 1, GETVAL, 0)) < 0)
         err_sys("can't GETVAL");
-    }
 
     if (semval == 0) {
         /*
@@ -154,23 +151,20 @@ sem_create(key_t key, int initval)
          */
 
         semctl_arg.val = initval;
-        if (semctl(id, 0, SETVAL, semctl_arg) < 0) {
+        if (semctl(id, 0, SETVAL, semctl_arg) < 0)
             err_sys("can SETVAL[0]");
-        }
 
         semctl_arg.val = BIGCOUNT;
-        if (semctl(id, 1, SETVAL, semctl_arg) < 0) {
+        if (semctl(id, 1, SETVAL, semctl_arg) < 0)
             err_sys("can SETVAL[1]");
-        }
     }
 
     /*
      * Decrement the process counter and then release the lock.
      */
 
-    if (semop(id, &op_endcreate[0], 2) < 0) {
+    if (semop(id, &op_endcreate[0], 2) < 0)
         err_sys("can't end create");
-    }
 
     return (id);
 }
@@ -196,18 +190,16 @@ sem_open(key_t key)
         return (-1);
     }    /* probably an ftok() error by caller */
 
-    if ((id = semget(key, 3, 0)) < 0) {
-        return (-1);
-    }    /* doesn't exist, or tables full */
+    if ((id = semget(key, 3, 0)) < 0)
+        return (-1);    /* doesn't exist, or tables full */
 
     /*
      * Decrement the process counter.  We don't need a lock
      * to do this.
      */
 
-    if (semop(id, &op_open[0], 1) < 0) {
+    if (semop(id, &op_open[0], 1) < 0)
         err_sys("can't open");
-    }
 
     return (id);
 }

@@ -416,7 +416,7 @@ _db_readidx(DB *db, off_t offset)
     asciilen[IDXLEN_SZ] = 0;     /* null terminate */
     if ((db->idxlen = atoi(asciilen)) < IDXLEN_MIN ||
         db->idxlen > IDXLEN_MAX) {
-        err_dump("_db_readidx: invalid length");
+            err_dump("_db_readidx: invalid length");
     }
 
     /*

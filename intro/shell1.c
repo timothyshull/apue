@@ -1,4 +1,5 @@
 #include "apue.h"
+#include <sys/wait.h>
 
 int
 main(void)
@@ -22,9 +23,8 @@ main(void)
         }
 
         /* parent */
-        if ((pid = waitpid(pid, &status, 0)) < 0) {
+        if ((pid = waitpid(pid, &status, 0)) < 0)
             err_sys("waitpid error");
-        }
         printf("%% ");
     }
     exit(0);

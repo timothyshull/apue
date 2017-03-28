@@ -2,6 +2,7 @@
 #include	<dirent.h>
 #include	<limits.h>
 #include	<string.h>
+#include	<termios.h>
 #include	<unistd.h>
 #include	<stdlib.h>
 
@@ -11,9 +12,7 @@ struct devdir {
 };
 
 static struct devdir *head;
-
 static struct devdir *tail;
-
 static char pathname[_POSIX_PATH_MAX + 1];
 
 static void
@@ -29,7 +28,7 @@ add(char *dirname)
      */
     if ((dirname[len - 1] == '.') && (dirname[len - 2] == '/' ||
                                       (dirname[len - 2] == '.' && dirname[len - 3] == '/'))) {
-        return;
+                                          return;
     }
     if (strcmp(dirname, "/dev/fd") == 0) {
         return;
@@ -93,7 +92,7 @@ searchdir(char *dirname, struct stat *fdstatp)
         if (strcmp(pathname, "/dev/stdin") == 0 ||
             strcmp(pathname, "/dev/stdout") == 0 ||
             strcmp(pathname, "/dev/stderr") == 0) {
-            continue;
+                continue;
         }
         if (stat(pathname, &devstat) < 0) {
             continue;

@@ -1,4 +1,5 @@
 #include "apue.h"
+#include <sys/wait.h>
 
 #define    DEF_PAGER    "/bin/more"        /* default pager program */
 
@@ -64,9 +65,8 @@ main(int argc, char *argv[])
             argv0 = pager;
         }    /* no slash in pager */
 
-        if (execl(pager, argv0, (char *) 0) < 0) {
+        if (execl(pager, argv0, (char *) 0) < 0)
             err_sys("execl error for %s", pager);
-        }
     }
     exit(0);
 }

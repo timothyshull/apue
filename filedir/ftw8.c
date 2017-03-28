@@ -125,12 +125,11 @@ dopath(Myfunc *func)
     while ((dirp = readdir(dp)) != NULL) {
         if (strcmp(dirp->d_name, ".") == 0 ||
             strcmp(dirp->d_name, "..") == 0) {
-            continue;
+                continue;
         }        /* ignore dot and dot-dot */
         strcpy(&fullpath[n], dirp->d_name);    /* append name after "/" */
-        if ((ret = dopath(func)) != 0) {        /* recursive */
-            break;
-        }    /* time to leave */
+        if ((ret = dopath(func)) != 0)        /* recursive */
+            break;    /* time to leave */
     }
     fullpath[n - 1] = 0;    /* erase everything from slash onward */
 

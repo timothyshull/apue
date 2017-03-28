@@ -7,7 +7,6 @@ static void sig_usr1(int);
 static void sig_alrm(int);
 
 static sigjmp_buf jmpbuf;
-
 static volatile sig_atomic_t canjump;
 
 int
@@ -48,11 +47,9 @@ sig_usr1(int signo)
 
     alarm(3);                /* SIGALRM in 3 seconds */
     starttime = time(NULL);
-    for (;;) {                /* busy wait for 5 seconds */
-        if (time(NULL) > starttime + 5) {
+    for (;;)                /* busy wait for 5 seconds */
+        if (time(NULL) > starttime + 5)
             break;
-        }
-    }
 
     pr_mask("finishing sig_usr1: ");
 

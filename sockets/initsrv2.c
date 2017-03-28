@@ -14,7 +14,7 @@ initserver(int type, const struct sockaddr *addr, socklen_t alen,
     }
     if (setsockopt(fd, SOL_SOCKET, SO_REUSEADDR, &reuse,
                    sizeof(int)) < 0) {
-        goto errout;
+                       goto errout;
     }
     if (bind(fd, addr, alen) < 0) {
         goto errout;

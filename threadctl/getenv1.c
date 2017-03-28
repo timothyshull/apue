@@ -1,4 +1,4 @@
-
+#include <limits.h>
 #include <string.h>
 
 #define MAXSTRINGSZ    4096

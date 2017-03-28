@@ -1,9 +1,7 @@
 #include	"opend.h"
 
 char errmsg[MAXLINE];
-
 int oflag;
-
 char *pathname;
 
 int

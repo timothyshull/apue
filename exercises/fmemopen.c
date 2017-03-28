@@ -116,16 +116,14 @@ type_to_flags(const char *__restrict type)
                 break;
 
             case 'w':
-                if (flags != 0) {
-                    return (0);
-                }    /* error */
+                if (flags != 0)
+                    return (0);    /* error */
                 flags |= MS_WRITE | MS_TRUNCATE;
                 break;
 
             case 'a':
-                if (flags != 0) {
-                    return (0);
-                }    /* error */
+                if (flags != 0)
+                    return (0);    /* error */
                 flags |= MS_APPEND;
                 break;
 
@@ -204,7 +202,7 @@ mstream_write(void *cookie, const char *buf, int len)
         ms->vsize = ms->curpos;
         if (((ms->flags & (MS_READ | MS_WRITE)) ==
              (MS_READ | MS_WRITE)) && (ms->vsize < ms->rsize)) {
-            *(ms->buf + ms->vsize) = 0;
+                 *(ms->buf + ms->vsize) = 0;
         }
     }
     if ((ms->flags & (MS_WRITE | MS_APPEND)) &&

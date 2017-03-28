@@ -22,9 +22,8 @@ loop(int ptym, int ignoreeof)
             } else if (nread == 0) {
                 break;
             }        /* EOF on stdin means we're done */
-            if (writen(ptym, buf, nread) != nread) {
+            if (writen(ptym, buf, nread) != nread)
                 err_sys("writen error to master pty");
-            }
         }
 
         /*
@@ -48,9 +47,8 @@ loop(int ptym, int ignoreeof)
         if ((nread = read(ptym, buf, BUFFSIZE)) <= 0) {
             break;
         }        /* signal caught, error, or EOF */
-        if (writen(STDOUT_FILENO, buf, nread) != nread) {
+        if (writen(STDOUT_FILENO, buf, nread) != nread)
             err_sys("writen error to stdout");
-        }
     }
 
     /*

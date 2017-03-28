@@ -1,6 +1,7 @@
 #include "apue.h"
 #include <netdb.h>
 #include <errno.h>
+#include <sys/socket.h>
 
 #define BUFLEN        128
 #define TIMEOUT        20

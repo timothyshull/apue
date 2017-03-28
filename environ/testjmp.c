@@ -6,7 +6,6 @@ static void f1(int, int, int, int);
 static void f2(void);
 
 static jmp_buf jmpbuffer;
-
 static int globval;
 
 int

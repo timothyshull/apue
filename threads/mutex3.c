@@ -5,7 +5,6 @@
 #define HASH(id) (((unsigned long)id)%NHASH)
 
 struct foo *fh[NHASH];
-
 pthread_mutex_t hashlock = PTHREAD_MUTEX_INITIALIZER;
 
 struct foo {

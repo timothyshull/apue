@@ -1,8 +1,10 @@
 #include "apue.h"
 #include <syslog.h>
 #include <fcntl.h>
+#include <sys/resource.h>
 
-void daemonize(const char *cmd)
+void
+daemonize(const char *cmd)
 {
     int i, fd0, fd1, fd2;
     pid_t pid;

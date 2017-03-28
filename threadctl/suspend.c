@@ -5,7 +5,6 @@ int quitflag;    /* set nonzero by thread */
 sigset_t mask;
 
 pthread_mutex_t lock = PTHREAD_MUTEX_INITIALIZER;
-
 pthread_cond_t waitloc = PTHREAD_COND_INITIALIZER;
 
 void *

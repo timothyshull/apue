@@ -6,24 +6,28 @@ extern int lockfile(int);
 
 extern int already_running(void);
 
-void reread(void)
+void
+reread(void)
 {
     /* ... */
 }
 
-void sigterm(int signo)
+void
+sigterm(int signo)
 {
     syslog(LOG_INFO, "got SIGTERM; exiting");
     exit(0);
 }
 
-void sighup(int signo)
+void
+sighup(int signo)
 {
     syslog(LOG_INFO, "Re-reading configuration file");
     reread();
 }
 
-int main(int argc, char *argv[])
+int
+main(int argc, char *argv[])
 {
     char *cmd;
     struct sigaction sa;
