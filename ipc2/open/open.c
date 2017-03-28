@@ -21,7 +21,8 @@ csopen(char *name, int oflag)
     }
 
     sprintf(buf, " %d", oflag);        /* oflag to ascii */
-    iov[0].iov_base = CL_OPEN " ";    /* string concatenation */
+    // iov[0].iov_base = CL_OPEN " ";    /* string concatenation */
+    iov[0].iov_base = strcat(CL_OPEN, " ");    /* string concatenation */
     iov[0].iov_len = strlen(CL_OPEN) + 1;
     iov[1].iov_base = name;
     iov[1].iov_len = strlen(name);

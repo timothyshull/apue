@@ -34,6 +34,9 @@ main(int argc, char *argv[])
             case '?':
                 err = 1;
                 break;
+
+            default:
+                break;
         }
     }
     if (err || (optind != argc - 1)) {
@@ -147,7 +150,7 @@ submit_file(int fd, int sockfd, const char *fname, size_t nbytes,
      */
     if ((nr = readn(sockfd, &res, sizeof(struct printresp))) !=
         sizeof(struct printresp)) {
-            err_sys("can't read response from server");
+        err_sys("can't read response from server");
     }
     if (res.retcode != 0) {
         printf("rejected: %s\n", res.msg);

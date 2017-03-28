@@ -165,6 +165,8 @@ myfunc(const char *pathname, const struct stat *statptr, int type)
                     break;
                 case S_IFDIR:    /* directories should have type = FTW_D */
                     err_dump("for S_IFDIR for %s", pathname);
+                default:
+                    break;
             }
             break;
         case FTW_D:

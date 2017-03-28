@@ -19,7 +19,7 @@ main(void)
     exit(0);
 }
 
-. . .
+// ...
 
 void
 cmd_add(void)

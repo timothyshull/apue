@@ -5,8 +5,7 @@
  * Open the file by sending the "name" and "oflag" to the
  * connection server and reading a file descriptor back.
  */
-int
-csopen(char *name, int oflag)
+int csopen(char *name, int oflag)
 {
     pid_t pid;
     int len;
@@ -39,7 +38,8 @@ csopen(char *name, int oflag)
         close(fd[1]);                /* parent */
     }
     sprintf(buf, " %d", oflag);        /* oflag to ascii */
-    iov[0].iov_base = CL_OPEN " ";        /* string concatenation */
+    // iov[0].iov_base = CL_OPEN " ";        /* string concatenation */
+    iov[0].iov_base = strcat(CL_OPEN, " ");        /* string concatenation */
     iov[0].iov_len = strlen(CL_OPEN) + 1;
     iov[1].iov_base = name;
     iov[1].iov_len = strlen(name);

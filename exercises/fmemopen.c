@@ -232,6 +232,8 @@ mstream_seek(void *cookie, fpos_t pos, int whence)
         case SEEK_CUR:
             off = ms->curpos + pos;
             break;
+        default:
+            break;
     }
     if (off < 0 || off > ms->vsize) {
         errno = EINVAL;

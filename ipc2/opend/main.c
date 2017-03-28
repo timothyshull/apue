@@ -22,6 +22,9 @@ main(int argc, char *argv[])
 
             case '?':
                 err_quit("unrecognized option: -%c", optopt);
+
+            default:
+                break;
         }
     }
 
